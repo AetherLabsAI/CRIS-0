@@ -851,33 +851,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
    Responsive
    ========================================================================== */
 @media (max-width: 1080px) {
-  .arch { grid-template-columns: minmax(0, 1fr); }
-  .arch { grid-template-rows: none; row-gap: 0; }
-  .arch__col { display: block; grid-row: auto; }
-  .arch__label { margin-bottom: 12px; }
-  .flow-pair { grid-row: auto; }
-  .flow-pair small { position: static; margin: 0; }
-  .flow-pair { flex-direction: row; justify-content: center; align-items: center; gap: 14px; height: 56px; padding: 0; }
-  .flow { width: 2px; height: 100%; }
-  .flow::before { background: repeating-linear-gradient(180deg, rgba(239, 236, 228, .5) 0 5px, transparent 5px 10px); animation-name: flow-y; }
-  .flow--rev::before { background: repeating-linear-gradient(180deg, rgba(163, 134, 255, .7) 0 5px, transparent 5px 10px); }
-  .flow::after { right: auto; left: 50%; top: auto; bottom: -1px; transform: translateX(-50%) rotate(135deg); }
-  .flow--rev::after { top: -1px; bottom: auto; transform: translateX(-50%) rotate(-45deg); }
-  @keyframes flow-y { to { background-position: 0 10px; } }
+  /* the architecture figure no longer stacks here: it keeps the desktop layout
+     and is scaled down (see "small screens" at the end of the file) */
   .track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   /* the arcs are positioned against the six-column track; once it reflows
      they would point at the wrong cards */
   .track > li.edge { display: none; }
   .edgenote { display: grid; }
-  /* stacked: the relation reads top-to-bottom. Every explicit placement from the
-     desktop rules has to be cleared, or the children keep hunting for column 3. */
-  .toolpair { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-row: auto; row-gap: 10px; }
-  .toolpair > .tool,
-  .toolpair > .tool:first-of-type,
-  .toolpair > .tool:last-of-type { grid-column: 1; grid-row: auto; grid-template-rows: none; }
-  .toolpair__link { grid-column: 1; grid-row: auto; flex-direction: row; gap: 8px; transform: none; }
-  .toolpair__op { max-width: none; }
-  .toolpair__link svg { transform: rotate(90deg); }
   .track li::after { display: none; }
   .sec__title--wide { max-width: 24ch; }
   /* the long headline keeps the full measure so it does not stack up */
@@ -1035,9 +1015,10 @@ img.loop__slot, video.loop__slot { display: block; width: 100%; height: auto; ob
 /* ---------- architecture figure: layout ----------
    The original three columns, left to right. The agent column is given a
    larger share and its paddings are tightened so the four steps' illustrations
-   are as large as the row allows. Desktop only: below 1081px the figure falls
-   back to the single-column stack defined further up. */
-@media (min-width: 1081px) {
+   are as large as the row allows. These blocks used to be desktop-only; they
+   now apply at every width, because below 1081px the figure keeps this same
+   layout and is scaled down as a whole (see "small screens" at the end). */
+@media all {
   .figure .arch { grid-template-columns: minmax(0, .72fr) 40px minmax(min-content, 1.5fr) 40px minmax(0, 1.18fr); row-gap: 10px; }
   .figure .flow-pair { padding: 0 5px; }
   .figure .arch__col { padding: 10px; }
@@ -1092,7 +1073,7 @@ img.loop__slot, video.loop__slot { display: block; width: 100%; height: auto; ob
 .demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .demo { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 8px; border: 1px dashed rgba(20, 20, 23, .28); background: #ffffff; font-family: var(--font-mono); font-size: .54rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
 video.demo { border-style: solid; border-color: var(--line); }
-@media (min-width: 1081px) {
+@media all {
   .figure .arch__col--split { display: flex; flex-direction: column; }
   .figure .arch__col--split > .arch__group:first-child { flex: 1 1 auto; display: flex; flex-direction: column; }
   .figure .arch__col--split .tools { flex: 1 1 auto; height: auto; }
@@ -1109,7 +1090,7 @@ video.demo { border-style: solid; border-color: var(--line); }
 /* the tools as small cards rather than one full-width row each: the world
    model -> policy pair on top, then the other three as compact tiles side by
    side, icon above name */
-@media (min-width: 1081px) {
+@media all {
   .figure .arch__col--split .tools { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; gap: 8px; }
   .figure .arch__col--split .toolpair { grid-column: 1 / -1; justify-content: center; grid-template-columns: auto auto auto; padding: 12px; }
   .figure .arch__col--split .tools > .tool { flex-direction: column; justify-content: center; padding: 12px 6px; }
@@ -1140,7 +1121,7 @@ video.demo { border-style: solid; border-color: var(--line); }
    column, and a second, leftward arrow runs from the demonstrations to the
    agent: the task stages are extracted from them. */
 .flow-pair--demo { display: none; }
-@media (min-width: 1081px) {
+@media all {
   .figure .arch > .arch__col:first-child { grid-column: 1; }
   .figure .flow-pair--in { grid-column: 2; }
   .figure .arch > .arch__col:nth-child(3) { grid-column: 3; }
@@ -1158,7 +1139,7 @@ video.demo { border-style: solid; border-color: var(--line); }
    its two names. */
 .toolpair__fig { grid-column: 1 / -1; display: grid; place-items: center; width: 100%; min-height: 72px; object-fit: cover; border-radius: 9px; border: 1px dashed rgba(20, 20, 23, .28); background: var(--paper); font-family: var(--font-mono); font-size: .54rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
 img.toolpair__fig, video.toolpair__fig { border-style: solid; border-color: var(--line); }
-@media (min-width: 1081px) {
+@media all {
   .figure .arch__col--split > .arch__group:first-child { flex: 1 1 auto; }
   .figure .arch__col--split .tools { flex: 1 1 auto; grid-template-rows: 1fr auto; }
   .figure .arch__col--split .toolpair { grid-template-rows: auto 1fr; row-gap: 10px; align-items: center; }
@@ -1190,7 +1171,7 @@ img.toolpair__fig, video.toolpair__fig { border-style: solid; border-color: var(
    keeps its own shape (about 7:1) instead of a fixed slot ratio. */
 .demos { grid-template-columns: minmax(0, 1fr); gap: 8px; }
 img.demo, video.demo { display: block; width: 100%; height: auto; aspect-ratio: auto; border: 1px solid var(--line); background: none; }
-@media (min-width: 1081px) {
+@media all {
   .figure .arch__group--demos img.demo, .figure .arch__group--demos video.demo { aspect-ratio: auto; height: auto; }
   .figure .flow-pair--demo { margin-bottom: 72px; }
   .figure .flow-pair--in, .figure .flow-pair--tools { margin-top: 118px; }
@@ -1212,3 +1193,33 @@ img.loop__slot--fit { aspect-ratio: 16 / 9; height: auto; object-fit: contain; b
 /* the views are still images now; height: auto lets the 16:10 ratio apply
    instead of the img's height attribute */
 img.io__view { height: auto; }
+
+/* ==========================================================================
+   Small screens (tablet and phone). Nothing here applies at 1081px and up.
+   ========================================================================== */
+
+/* ---------- architecture figure: scaled, not stacked ----------
+   The figure is laid out at a fixed desktop width and shrunk as a whole to fit
+   the column, so it reads as a smaller copy of the desktop diagram. main.js
+   sets --arch-zoom (fitArch); without it the figure scrolls sideways instead. */
+@media (max-width: 1080px) {
+  .figure { overflow-x: auto; }
+  .figure .arch { width: 1120px; zoom: var(--arch-zoom, 1); }
+}
+
+/* ---------- cover: a landscape picture, not a full-screen crop ----------
+   A full-height cover crops the 16:9 photo to a narrow vertical slice on a
+   portrait screen. Here the photo keeps its own shape at the top, under the
+   nav bar, and the title block follows it on the ink background. */
+@media (max-width: 720px), (max-width: 1080px) and (orientation: portrait) {
+  .hero { display: block; min-height: 0; padding-top: 64px; }
+  .hero__media { position: relative; inset: auto; z-index: 0; aspect-ratio: 16 / 9; }
+  .hero__hit { inset: 64px 0 auto; aspect-ratio: 16 / 9; }
+  /* only the lower edge is shaded, so the photo runs into the ink below it */
+  .hero__shade,
+  .hero.has-video .hero__shade, .hero.has-poster .hero__shade {
+    background: linear-gradient(180deg, rgba(11, 11, 13, 0) 55%, rgba(11, 11, 13, .55) 85%, var(--ink) 100%);
+  }
+  .hero__content { padding-top: clamp(18px, 4vw, 30px); padding-bottom: clamp(30px, 6vw, 48px); }
+  .hero__title { margin-top: 12px; margin-bottom: 20px; font-size: clamp(4rem, 17vw, 9rem); }
+}

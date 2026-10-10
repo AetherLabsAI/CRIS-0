@@ -492,6 +492,25 @@
     set(false);
   }
 
+  /* ---------- architecture figure on small screens ---------- */
+  // Below the desktop breakpoint the figure keeps its desktop layout at a fixed
+  // width (see style.css, "small screens") and is scaled to the column here.
+  function fitArch() {
+    const arch = $('.figure .arch');
+    if (!arch) return;
+    const DESIGN_W = 1120;
+    const small = window.matchMedia('(max-width: 1080px)');
+    const fit = () => {
+      const w = arch.parentElement.clientWidth;
+      if (small.matches && w) arch.style.setProperty('--arch-zoom', Math.min(1, w / DESIGN_W).toFixed(4));
+      else arch.style.removeProperty('--arch-zoom');
+    };
+    fit();
+    window.addEventListener('resize', fit);
+    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(arch.parentElement);
+  }
+
+  fitArch();
   initNav();
   initAuthors();
   initWorldModelClips();
