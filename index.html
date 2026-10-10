@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CRIS-0 — Causal Robotic Intelligence System · Aether AI</title>
+  <meta name="description" content="CRIS-0 is a causal robotic intelligence system that coordinates a Causal Agent, learned policies, agent-generated functions, SLAM navigation and world models through a unified tool interface.">
+  <meta name="theme-color" content="#0b0b0d">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CRIS-0: A Causal Robotic Intelligence System with Unified Tools and State-Based Execution for Real-World Assistance">
+  <meta property="og:description" content="Robust to disturbances, autonomous over long horizons, and adaptive to user preferences — real-world robot assistance from Aether AI.">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css?v=70">
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a class="nav__brand" href="#top" aria-label="Aether AI — CRIS-0 home">
+      <img class="logo" src="assets/img/aetherai-wordmark.svg" alt="" width="160" height="15">
+      <span class="nav__sep" aria-hidden="true"></span>
+      <span class="nav__product">CRIS-0</span>
+    </a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#overview">Overview</a>
+      <a href="#method">Causality-guided Robot Agent</a>
+      <a href="#worldmodel">Causal World Model</a>
+      <a href="#experiments">Experiments</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="btn btn--light btn--sm" type="button" data-play-hero>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>Watch demo
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO: main demo ============ -->
+  <section class="hero" id="top">
+    <div class="hero__media" aria-hidden="true">
+      <div class="hero__fallback"><div class="orbits"><i></i><i></i><i></i></div></div>
+      <video class="hero__bg" muted loop playsinline preload="auto"></video>
+      <div class="hero__shade"></div>
+    </div>
+    <button class="hero__hit" type="button" data-play-hero aria-label="Play the CRIS-0 main demo video"></button>
+
+    <div class="hero__content container">
+      <p class="label label--hero">Aether AI <b>·</b> Research <b>·</b> 2026</p>
+      <h1 class="hero__title">CRIS<span class="hero__dash">-</span><span class="grad-text">0</span></h1>
+      <div class="hero__row">
+        <p class="hero__subtitle"><strong>Towards a fully autonomous Causal Robotic Intelligence System</strong> that understands human needs, acts over long horizons, and adapts as the world changes.</p>
+        <div class="hero__cta">
+          <button class="play-pill" type="button" data-play-hero>
+            <span class="play-pill__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+            <span class="play-pill__text"><strong>Watch the demo</strong><small data-hero-meta>Main demo</small></span>
+          </button>
+          <a class="btn btn--ghost" href="#overview">Learn more
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURE STRIP: the three selling points, under the cover ============
+       Glyphs use a 24 viewBox with a 2px stroke: they render inline beside the
+       heading at ~22px, where a 48-box stroke would thin out to under a pixel. -->
+  <section class="capstrip" aria-label="What CRIS-0 delivers">
+    <div class="container">
+      <div class="cards3">
+        <article class="ccard reveal">
+          <div class="ccard__head">
+            <!-- a shield that holds its shape under pressure -->
+            <svg class="ccard__glyph" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6 4.8 5.3v5.9c0 4.1 3 7.6 7.2 8.7 4.2-1.1 7.2-4.6 7.2-8.7V5.3L12 2.6Z" fill="currentColor" fill-opacity=".15"/><path d="m9.2 12.1 1.9 1.9 3.7-4"/></svg>
+            <h3>Robustness</h3>
+          </div>
+          <p>Maintains reliable execution under various real-world disturbances, such as lighting changes, objects moved, and unexpected human intervention.</p>
+        </article>
+        <article class="ccard reveal" style="--d:.08s">
+          <div class="ccard__head">
+            <!-- a run that keeps going round on its own -->
+            <svg class="ccard__glyph" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a8.5 8.5 0 1 1-2.5-6"/><path d="M20.5 3v5h-5"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/></svg>
+            <h3>Autonomy</h3>
+          </div>
+          <p>Sustains autonomous execution across extended, multi-step tasks, continually tracking task state to retry failed actions and revise plans as needed.</p>
+        </article>
+        <article class="ccard reveal" style="--d:.16s">
+          <div class="ccard__head">
+            <!-- a person, with the spark of what the agent knows about them -->
+            <svg class="ccard__glyph" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="8" r="3.6" fill="currentColor" fill-opacity=".15"/><path d="M4 20.2a6.5 6.5 0 0 1 13 0"/><path d="M19.6 1.9c.42 2.05 1.03 2.66 3.08 3.08-2.05.42-2.66 1.03-3.08 3.08-.42-2.05-1.03-2.66-3.08-3.08 2.05-.42 2.66-1.03 3.08-3.08Z" fill="currentColor" stroke="none"/></svg>
+            <h3>Personalization</h3>
+          </div>
+          <p>Delivers personalized assistance, inferring preferences and implicit constraints from user memory and interaction history.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 01 OVERVIEW ============ -->
+  <section class="sec" id="overview">
+    <div class="container">
+      <div class="sec__head reveal">
+        <p class="label"><b>01</b> Overview</p>
+        <h2 class="sec__title sec__title--wide sec__title--long">Building a Real-world Autonomous Robotic System with Causality-driven Agent and World Model</h2>
+      </div>
+
+      <!-- One-sentence statement of what CRIS-0 actually is, before the long build-up. -->
+      <p class="epigraph reveal">“CRIS-0 is a causality-driven robotic intelligence system that integrates a Causal Agent with a Causal World Model to construct structured causal representations of the physical world, enabling robots to actively explore, intervene in, reason about, and adapt to their environments.”</p>
+
+      <div class="prose reveal">
+        <p>Deploying robots in the real world requires them to identify task-relevant causal variables and reason about how these variables influence one another over time. Whether a robotic system can handle complex, changing environments therefore depends largely on how well it models and understands the causal structure underlying task progress and physical interaction.</p>
+
+        <p>We introduce <strong>CRIS-0</strong>, a Causal Robotic Intelligence System that represents task progress through an explicit causal state and adapts its behavior as that state evolves. CRIS-0 contains two key components: a <strong>Causality-guided Robot Agent</strong>, which organizes task execution around causal state transitions, and a <strong>Causal World Model</strong>, which models and predicts the physical consequences of actions. Given a new task, CRIS-0 analyzes a small set of demonstrations to identify task-relevant variables, decompose the task into stages, define verification criteria, and construct the tools or policies needed for execution. During interaction, the agent continuously updates its state from observations, verifies intermediate outcomes, and selectively invokes rule-based tools, learned policies, navigation modules, or the world model to complete and refine the task.</p>
+
+        <p>This design enables three key capabilities. <strong>Robustness:</strong> CRIS-0 can detect task-relevant disturbances, distinguish them from irrelevant variations, and recover by returning to the affected stage. <strong>Autonomy:</strong> its explicit state representation enables CRIS-0 to track task progress, verify intermediate outcomes, and autonomously decide when to continue, retry, or replan during execution. <strong>Personalization:</strong> because task structure, verification rules, and execution tools can be constructed and refined from demonstrations and feedback, CRIS-0 can adapt its behavior to different users, preferences, and task-specific requirements.</p>
+      </div>
+
+      <div class="links reveal">
+        <button class="btn btn--dark" type="button" data-play-hero>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>Watch the demo
+        </button>
+        <a class="btn btn--outline" href="#experiments">See the experiments</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 02 SYSTEM ============ -->
+  <section class="sec sec--alt" id="method">
+    <div class="container">
+      <div class="sec__head reveal">
+        <p class="label"><b>02</b> Causality-guided Robot Agent</p>
+        <h2 class="sec__title sec__title--wide sec__title--long">A Causality-guided Robot Agent with Unified State and Structured Transition Loop</h2>
+      </div>
+
+      <div class="prose prose--intro reveal">
+        <p>CRIS-0 unifies all control and verification strategies as callable tools that the planner can select and invoke, including policy models, agent-generated rule-based functions, SLAM-based navigation, world models, and verifiers. From a small set of demonstrations, CRIS-0 acquires these reusable tools and skills, then coordinates them based on the current task state throughout execution. When a tool fails during execution, CRIS-0 automatically revises the tool and retries the corresponding stage.</p>
+      </div>
+
+      <!-- 2.1 -->
+      <div class="sub">
+        <div class="sub__head reveal"><span class="sub__n">2.1</span><h3 class="sub__title">Agent Architecture</h3></div>
+
+      <!-- Architecture figure -->
+      <figure class="figure reveal" aria-label="CRIS-0 architecture: inputs flow into a Causal Agent that maintains task state and calls tools through a unified interface">
+        <div class="arch">
+          <div class="arch__col">
+            <div class="arch__label">Inputs</div>
+            <div class="io">
+              <div class="io__item"><span class="io__k">User request</span><span class="io__v">“Get me a drink that fits my fitness goals.”</span></div>
+              <div class="io__item"><span class="io__k">Observations</span><span class="io__v">Head, left, and right camera views</span>
+                <!-- the three camera views, as still first frames -->
+                <span class="io__views"><span class="io__cam"><img class="io__view" src="assets/img/view_head.jpg" width="320" height="200" loading="lazy" alt="Head camera view"><em>Head</em></span><span class="io__cam"><img class="io__view" src="assets/img/view_left.jpg" width="320" height="200" loading="lazy" alt="Left hand camera view"><em>Left</em></span><span class="io__cam"><img class="io__view" src="assets/img/view_right.jpg" width="320" height="200" loading="lazy" alt="Right hand camera view"><em>Right</em></span></span></div>
+              <div class="io__item"><span class="io__k">Tool feedback</span><span class="io__v">Verifier results · errors</span>
+                <code class="io__code"><span>verify(grasp) &rarr; <b class="is-bad">false</b></span><span><b class="is-bad">IKError</b>: joint limit hit</span></code></div>
+            </div>
+          </div>
+
+          <div class="flow-pair flow-pair--in" aria-hidden="true"><span class="flow"></span></div>
+
+          <div class="arch__col">
+            <div class="arch__label">Causal Agent</div>
+            <div class="core">
+              <p class="core__title">Task state</p>
+              <p class="core__sub">Updated continuously from observations and tool feedback</p>
+              <!-- each step carries an illustration in its .loop__slot -->
+              <ol class="loop">
+                <li>Identify stage<img class="loop__slot" src="assets/img/steps/identify_stage_3d.jpg" width="720" height="405" loading="lazy" alt="A robot looks at a coffee table and matches what it sees to one stage in a sequence of table states"></li>
+                <li>Select tool<img class="loop__slot" src="assets/img/steps/select_tool_3d.jpg" width="720" height="405" loading="lazy" alt="A robot considers several tools shown as icons and picks one before approaching a coffee table"></li>
+                <li>Verify outcome<img class="loop__slot" src="assets/img/steps/verify_outcome_3d.jpg?v=2" width="720" height="405" loading="lazy" alt="A robot holding a cup compares the expected result with what it observes and confirms they match"></li>
+                <li>Retry / replan<img class="loop__slot" src="assets/img/steps/retry_replan_3d.jpg?v=2" width="720" height="405" loading="lazy" alt="A robot reaches down to pick up a book that fell off the coffee table and try again"></li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="flow-pair flow-pair--tools" aria-hidden="true"><span class="flow"></span><span class="flow flow--rev"></span><small>call<br>result</small></div>
+          <!-- demonstrations feed the agent too: the task stages are extracted from them -->
+          <div class="flow-pair flow-pair--demo" aria-hidden="true"><span class="flow flow--rev"></span><small>extract<br>stages</small></div>
+
+          <!-- right column: the tool interface on top, and beneath it the handful of
+               demonstrations those tools are extracted from (upward arrow) -->
+          <div class="arch__col arch__col--split">
+            <div class="arch__group">
+            <div class="arch__label">Unified tool interface</div>
+            <div class="tools">
+              <!-- the world model plus an action-prediction head is what makes the policy -->
+              <div class="toolpair">
+                <div class="tool" style="--c:var(--c-world)"><span class="tool__name"><span class="tool__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3Z"/></svg></span><span class="tool__label">Causal World Model</span></span><span class="tool__desc">Predicting future outcomes for actions</span></div>
+                <div class="toolpair__link" aria-hidden="true">
+                  <span class="toolpair__op">+ Action</span>
+                  <svg viewBox="0 0 34 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h29"/><path d="m26 2 4 4-4 4"/></svg>
+                </div>
+                <div class="tool" style="--c:var(--c-policy)"><span class="tool__name"><span class="tool__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7 17 7M7 7l10 10M7 17 17 7M7 17h10" opacity=".45"/><circle cx="6" cy="7" r="2.3" fill="currentColor" stroke="none"/><circle cx="6" cy="17" r="2.3" fill="currentColor" stroke="none"/><circle cx="18" cy="7" r="2.3" fill="currentColor" stroke="none"/><circle cx="18" cy="17" r="2.3" fill="currentColor" stroke="none"/></svg></span><span class="tool__label">Policy</span></span><span class="tool__desc">Policy model for contact-rich manipulation</span></div>
+                <img class="toolpair__fig" src="assets/img/world_model.jpg" width="1000" height="248" loading="lazy" alt="Three views from the causal world model for one robot scene: two predicted representation maps and the camera image with predicted points overlaid">
+              </div>
+              <div class="tool" style="--c:var(--c-rule)"><span class="tool__name"><span class="tool__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 4c-2 0-3 1-3 3v2.2c0 1.3-.8 2.8-2.2 2.8 1.4 0 2.2 1.5 2.2 2.8V17c0 2 1 3 3 3"/><path d="M15.5 4c2 0 3 1 3 3v2.2c0 1.3.8 2.8 2.2 2.8-1.4 0-2.2 1.5-2.2 2.8V17c0 2-1 3-3 3"/></svg></span><span class="tool__label">Rule-based functions</span></span><span class="tool__desc">Agent-generated functions using SAM3, RGB-D, and IK</span></div>
+              <div class="tool" style="--c:var(--c-slam)"><span class="tool__name"><span class="tool__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.2s-6.8-6.1-6.8-11.4a6.8 6.8 0 0 1 13.6 0c0 5.3-6.8 11.4-6.8 11.4Z" fill="currentColor" fill-opacity=".16"/><circle cx="12" cy="9.8" r="2.5"/></svg></span><span class="tool__label">SLAM navigation</span></span><span class="tool__desc">Navigating to locations required by the task</span></div>
+              <div class="tool tool--wide" style="--c:var(--c-verify)"><span class="tool__name"><span class="tool__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9" fill="currentColor" fill-opacity=".16"/><path d="m8 12.3 2.8 2.8 5.4-5.6"/></svg></span><span class="tool__label">Verifiers</span></span><span class="tool__desc">Checking stage completion and providing feedback for retry or replanning when necessary</span></div>
+            </div>
+            </div>
+            <div class="arch__up" aria-hidden="true"><span class="flow"></span><small>extract tools and skills</small></div>
+            <div class="arch__group arch__group--demos">
+              <div class="arch__label">A few demonstrations</div>
+              <div class="demos"><img class="demo" src="assets/img/demo_cakes.jpg" width="1200" height="166" loading="lazy" alt="Four frames of a demonstration: the robot picks up two cakes one after the other and places them in a box"><img class="demo" src="assets/img/demo_apples.jpg" width="1200" height="166" loading="lazy" alt="Four frames of a demonstration: the robot picks up two apples one after the other and places them on a plate"></div>
+            </div>
+          </div>
+        </div>
+        <figcaption class="figure__cap"><span>Fig. 1.</span> Overview of the Causality-guided Robot Agent and its tools within CRIS-0. The agent maintains the task state and delegates each stage to the appropriate tool through the Unified Tool Interface. The Causal World Model predicts action outcomes and provides the foundation for the policy model used in contact-rich manipulation.</figcaption>
+      </figure>
+
+        <h4 class="sub3 reveal">Unified State with Causal Features</h4>
+        <div class="prose prose--intro reveal">
+          <p>The agent represents each task stage through a set of key causal variables, organizing inputs and outputs around these variables in a unified format. For example, when aligning a tablecloth corner, these variables include whether the cloth is grasped, the corner&rsquo;s offset from its target position, and whether slippage has occurred. The agent updates this representation using observations and tool feedback to determine whether to adjust the motion, re-grasp the cloth, or proceed to the next stage.</p>
+        </div>
+
+        <!-- the three keys are tinted to match the same keys in the payload beside them -->
+        <div class="split split--even split--stretch">
+          <ol class="vars">
+            <li class="reveal" style="--c:var(--c-verify)"><code>cloth_grasped</code><p>Is the cloth actually held? Decides whether the pull can begin at all, or whether the task state falls back to the grasping stage.</p></li>
+            <li class="reveal" style="--d:.06s; --c:var(--c-rule)"><code>corner_offset_cm</code><p>How far the corner still sits from its target. Decides the direction and the distance of the pull, and when the stage is complete.</p></li>
+            <li class="reveal" style="--d:.12s; --c:var(--c-world)"><code>slippage_detected</code><p>Did the cloth slip out of the gripper mid-pull? Decides whether to continue or to re-grasp before trying again.</p></li>
+          </ol>
+
+          <div class="code-col">
+            <figure class="codefig reveal" style="--d:.06s" aria-label="The state payload passed to a tool for the corner-alignment stage">
+              <div class="trace__bar">
+                <span class="trace__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span>cris-0 · tool input</span>
+                <span class="trace__badge">State</span>
+              </div>
+<pre><code>{
+  <span class="k">"stage"</span>: <span class="v">"align_tablecloth_corner"</span>,
+  <span class="k">"state"</span>: {
+    <span class="key" style="--c:var(--c-verify)">"cloth_grasped"</span>: <span class="v">true</span>,
+    <span class="key" style="--c:var(--c-rule)">"corner_offset_cm"</span>: [<span class="v">12</span>, <span class="v">-4</span>],
+    <span class="key" style="--c:var(--c-world)">"slippage_detected"</span>: <span class="v">false</span>
+  },
+  <span class="k">"target"</span>: {
+    <span class="key" style="--c:var(--c-rule)">"corner_offset_cm"</span>: [<span class="v">0</span>, <span class="v">0</span>]
+  }
+}</code></pre>
+              <figcaption>Example of the unified tool input format for tablecloth alignment, specifying the current task stage, key causal variables, and target state.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <h4 class="sub3 reveal">Unified Tool Interfaces</h4>
+        <div class="prose prose--intro reveal">
+          <p>The unified tool interface provides a consistent calling format for different robotic capabilities, allowing the agent to select and invoke tools based on the current task state. For example, when a user asks for a drink suitable for their fitness goals, the planner selects an appropriate drink, invokes <code>rule.position_gripper(target="coke")</code> to position the gripper near it, and then calls <code>policy.skill(label="grasp")</code> for the final contact-rich grasp. The rule-based motion-planning function handles approaching the selected target among multiple drinks, providing the policy with a suitable starting pose. The policy therefore only needs to execute the local manipulation skill, without having to interpret the overall task or infer user intent.</p>
+        </div>
+      </div>
+
+      <!-- 2.2 -->
+      <div class="sub">
+        <div class="sub__head reveal"><span class="sub__n">2.2</span><h3 class="sub__title">Structured State Transition Loop</h3></div>
+
+        <div class="prose prose--intro reveal">
+          <p>CRIS-0 operates in a continuous loop of state assessment, tool execution, and outcome verification, progressively building and refining a task graph. Task decomposition initializes this graph, with nodes representing verifiable stages and edges representing transitions between them. During execution, the agent uses feedback from both successful and failed attempts to update the graph and determine the next step, whether to advance, retry, or revisit an earlier stage. This evolving graph guides subsequent execution as the agent accumulates experience.</p>
+        </div>
+
+        <h4 class="sub3 reveal">Task Decomposition</h4>
+
+        <ol class="steps">
+          <li class="step reveal"><span class="step__n">Step 01</span><h4>Teleoperated demos</h4><p>A small set of teleoperated demonstrations lets CRIS-0 automatically discover reusable execution patterns.</p></li>
+          <li class="step reveal" style="--d:.06s"><span class="step__n">Step 02</span><h4>Task decomposition</h4><p>The planner turns each task into atomic, verifiable stages, separating free-space motion from contact-rich interaction.</p></li>
+          <li class="step reveal" style="--d:.12s"><span class="step__n">Step 03</span><h4>Verification criteria</h4><p>Each stage defines an observable success condition, checked by an executable verification script at runtime.</p></li>
+          <li class="step reveal" style="--d:.18s"><span class="step__n">Step 04</span><h4>Tool construction</h4><p>Each stage receives a reference strategy, such as a generated function or learned policy, exposed to the planner as a callable tool.</p></li>
+        </ol>
+
+        <!-- The detail behind Step 04: how a stage's reference strategy is actually
+             built, and why a stage ends up rule-based, policy-driven, or either.
+             Sits before the walkthrough because it explains the kind tags there. -->
+        <div class="prose reveal">
+          <p>CRIS-0 implements a reference execution strategy for each stage and exposes it as a callable tool for the planner. For free-space motions, it extracts the gripper and arm poses relative to the target object at the end of the demonstrated stage to derive a suitable pre-manipulation configuration. The agent then encodes this spatial relationship in a reusable function.</p>
+
+          <p>For example, when grasping a pot, CRIS-0 identifies from the demonstrations that the gripper should first approach the handle. At runtime, the generated function uses SAM3 and RGB-D observations to localize the handle and applies the demonstrated relative pose to compute a target end-effector pose. Inverse kinematics then determines the corresponding joint configuration, allowing the arm to move into position before grasping.</p>
+
+          <p>In contrast, contact-rich stages often require finer control, such as continuously adjusting the gripper pose to achieve a stable grasp on a pot handle. Rule-based functions are often limited in their ability to handle these interactions, so CRIS-0 uses our policy model as the reference execution strategy for such stages. For some stages, such as pressing a button, both rule-based functions and policy models are viable, with neither clearly preferable in advance. CRIS-0 exposes both as tools, allowing the planner to select between them dynamically during execution.</p>
+
+          <p>After decomposition, CRIS-0 connects the stages into a task graph based on their dependencies and state transition conditions. Each node is associated with execution tools and verification criteria, while edges define how changes in key causal variables lead to transitions between stages. This structure supports both forward progress and recovery through retries or a return to an earlier stage.</p>
+        </div>
+
+        <div class="example reveal">
+          <div class="example__head">
+            <h4>Example · Clearing a tablecloth</h4>
+          </div>
+          <ol class="track">
+            <!-- Backward edges, in the track's own grid so they land under the
+                 right cards: a repeat loop on 01 and a failure edge 03 -> 02.
+                 Below 1080px the track reflows and they give way to the notes
+                 underneath. -->
+            <li class="edge edge--loop" style="--c:#5d6cff">
+              <span class="edge__u" aria-hidden="true"></span>
+              <span class="edge__lbl">repeat until the cloth clears the edge</span>
+            </li>
+            <li class="edge edge--back" style="--c:#c2564a">
+              <span class="edge__u" aria-hidden="true"></span>
+              <span class="edge__lbl">verification fails &rarr; re-grasp</span>
+            </li>
+            <li>
+              <video class="track__clip" src="assets/videos/track/push.mp4?v=2" poster="assets/videos/track/push.jpg?v=2" muted loop playsinline autoplay preload="none" aria-hidden="true" tabindex="-1"></video>
+              <span class="track__n">01</span>
+              <p class="track__name">Push cloth over edge</p>
+              <span class="kind">Rule-based function</span>
+              <p class="track__verify"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8.5 3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Cloth extends ≈5 cm past the table edge</p>
+            </li>
+            <li>
+              <video class="track__clip" src="assets/videos/track/position.mp4?v=2" poster="assets/videos/track/position.jpg?v=2" muted loop playsinline autoplay preload="none" aria-hidden="true" tabindex="-1"></video>
+              <span class="track__n">02</span>
+              <p class="track__name">Position gripper</p>
+              <span class="kind">Rule-based function</span>
+              <p class="track__verify"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8.5 3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Gripper near the target pre-grasp pose</p>
+            </li>
+            <li class="is-contact">
+              <video class="track__clip" src="assets/videos/track/grasp.mp4?v=2" poster="assets/videos/track/grasp.jpg?v=2" muted loop playsinline autoplay preload="none" aria-hidden="true" tabindex="-1"></video>
+              <span class="track__n">03</span>
+              <p class="track__name">Grasp &amp; fine-adjust</p>
+              <span class="kind">Skill policy</span>
+              <p class="track__verify"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8.5 3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Cloth securely held in the closed gripper</p>
+            </li>
+            <li class="is-contact">
+              <video class="track__clip" src="assets/videos/track/fold.mp4?v=2" poster="assets/videos/track/fold.jpg?v=2" muted loop playsinline autoplay preload="none" aria-hidden="true" tabindex="-1"></video>
+              <span class="track__n">04</span>
+              <p class="track__name">Fold</p>
+              <span class="kind">Skill policy</span>
+              <p class="track__verify"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8.5 3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Cloth folded along the intended crease</p>
+            </li>
+            <!-- stages 05-06 (e.g. the right-hand regrasp) are left out of this walkthrough -->
+            <li class="track__more" aria-label="Further stages omitted"><span>· · ·</span></li>
+            <li>
+              <video class="track__clip" src="assets/videos/track/place.mp4?v=2" poster="assets/videos/track/place.jpg?v=2" muted loop playsinline autoplay preload="none" aria-hidden="true" tabindex="-1"></video>
+              <span class="track__n">07</span>
+              <p class="track__name">Place into basket</p>
+              <span class="kind">Rule-based function</span>
+              <p class="track__verify"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 8.5 3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Cloth released inside the storage basket</p>
+            </li>
+
+</ol>
+          <ul class="edgenote">
+            <li><b>01</b> repeats until the cloth clears the edge.</li>
+            <li><b>03</b> returns to <b>02</b> to re-grasp when verification fails.</li>
+          </ul>
+        </div>
+
+        <h4 class="sub3 reveal">Execution and Verification</h4>
+        <div class="prose prose--intro reveal">
+          <p>During task execution, CRIS-0 maintains an evolving task state based on observations and tool feedback. The planner uses this state to identify the current stage and select an appropriate tool, guided by the predefined stage definitions and reference execution strategies. When verification fails or an unexpected stage transition occurs, the planner reassesses the task state and determines whether to retry the action or revise the plan. If the failure stems from the tool itself, such as an IK solution that violates joint limits, CRIS-0 automatically revises the tool using the error feedback and retains the updated implementation after successful execution.</p>
+        </div>
+
+        <div class="split split--even split--stretch">
+          <ol class="adv">
+            <li class="reveal"><span class="adv__n">(1)</span><div><h4>Recovery follows from tracking stages</h4><p>If an object is moved during grasping, the planner sees the task has regressed to <em>approach</em> and re-invokes the positioning function.</p></div></li>
+            <li class="reveal" style="--d:.06s"><span class="adv__n">(2)</span><div><h4>Errors don't accumulate</h4><p>Each stage's outcome is checked before proceeding, so local failures are corrected before they propagate.</p></div></li>
+            <li class="reveal" style="--d:.12s"><span class="adv__n">(3)</span><div><h4>Hard tasks become simple subproblems</h4><p>Each stage is assigned the execution tool best suited to it, enabling operations that a single policy struggles to handle end to end.</p></div></li>
+          </ol>
+
+          <div class="trace-col">
+          <div class="trace reveal" role="img" aria-label="Illustrative execution trace: a displaced pot sends the task back to the approach stage, a failing IK tool is revised, and the grasp then succeeds">
+            <div class="trace__bar"><span class="trace__dots"><i></i><i></i><i></i></span><span>cris-0 · execution trace</span><span class="trace__badge">Illustrative</span></div>
+            <ol class="trace__body">
+              <li style="--i:0"><span class="t-tag">approach</span><span class="t-msg">call <b>rule.position_gripper</b>(target="pot handle")</span><span class="t-ok">✓</span></li>
+              <li style="--i:1"><span class="t-tag">grasp</span><span class="t-msg">call <b>policy.skill</b>(label="grasp")</span><span class="t-dim">…</span></li>
+              <li style="--i:2" class="is-warn"><span class="t-tag">event</span><span class="t-msg">pot displaced · <b>verify</b>(grasp_secure) → false</span><span class="t-bad">✗</span></li>
+              <li style="--i:3" class="is-accent"><span class="t-tag">state</span><span class="t-msg">task regressed → <b>approach</b></span><span class="t-dim">↺</span></li>
+              <li style="--i:4"><span class="t-tag">approach</span><span class="t-msg">call <b>rule.position_gripper</b>(target="pot handle")</span><span class="t-dim">…</span></li>
+              <li style="--i:5" class="is-warn"><span class="t-tag">tool err</span><span class="t-msg">IK solution violates joint limits</span><span class="t-bad">✗</span></li>
+              <li style="--i:6" class="is-accent"><span class="t-tag">revise</span><span class="t-msg">patch <b>rule.position_gripper</b> from error feedback</span><span class="t-ok">✓</span></li>
+              <li style="--i:7"><span class="t-tag">grasp</span><span class="t-msg">call <b>policy.skill</b>(label="grasp") · verified</span><span class="t-ok">✓</span></li>
+              <li style="--i:8" class="is-accent"><span class="t-tag">retain</span><span class="t-msg">keep revised tool for future runs</span><span class="t-ok">✓</span></li>
+            </ol>
+          </div>
+          </div>
+        </div>
+
+        <h4 class="sub3 reveal">Failure Recovery</h4>
+        <div class="prose prose--intro reveal">
+          <p>When verification fails, the agent uses the current task state and execution feedback to identify the cause and select a recovery path through the task graph. It may retry the stage with adjusted tool parameters, revisit an earlier stage to restore a required condition, or revise the tool implementation when the feedback reveals an error. Each recovery attempt is verified before execution continues. Successful recovery paths are incorporated into the task graph, while corrected tool implementations are retained for reuse, allowing the agent to build on its experience across successive attempts.</p>
+        </div>
+
+        <!-- Two real recovery runs. Like the stage clips above they only load and
+             play once scrolled into view (see initTrackClips in main.js). -->
+        <div class="split split--even split--stretch">
+            <figure class="slot reveal" aria-label="Recovery clip: repeated attempts to grasp a tape-measure package before throwing it away">
+              <div class="trace__bar">
+                <span class="trace__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span>cris-0 · recovery · discarding a tape-measure package</span>
+                <span class="trace__badge">Retry</span>
+              </div>
+              <video class="slot__video" src="assets/videos/recovery_2.mp4" poster="assets/videos/recovery_2.jpg" muted loop playsinline autoplay controls preload="none" aria-label="The robot retries the grasp on a tape-measure package several times, then throws it away"></video>
+            </figure>
+
+            <figure class="slot reveal" style="--d:.08s" aria-label="Recovery clip: repeated attempts to pick up a pear and put it in the bowl">
+              <div class="trace__bar">
+                <span class="trace__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span>cris-0 · recovery · pear into the bowl</span>
+                <span class="trace__badge">Retry</span>
+              </div>
+              <video class="slot__video" src="assets/videos/recovery_1.mp4" poster="assets/videos/recovery_1.jpg" muted loop playsinline autoplay controls preload="none" aria-label="The robot retries picking up a pear several times, then places it in the bowl"></video>
+            </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 CAUSAL WORLD MODEL ============ -->
+  <section class="sec sec--alt" id="worldmodel">
+    <div class="container">
+      <div class="sec__head reveal">
+        <p class="label"><b>03</b> Causal World Model</p>
+        <h2 class="sec__title sec__title--wide sec__title--long">A Causal World Model for Joint Future Prediction and Robot Control</h2>
+      </div>
+
+      <div class="prose prose--intro reveal">
+        <p>CRIS-0 models future evolution through task-relevant causal variables rather than relying only on direct pixel prediction. These variables capture the state changes that matter for interaction, allowing the system to reason about how robot actions affect task progress and to use this structure for both future prediction and policy learning.</p>
+      </div>
+
+      <!-- 3.1 -->
+      <div class="sub">
+        <div class="sub__head reveal"><span class="sub__n">3.1</span><h3 class="sub__title">Causal World Model for Future Prediction</h3></div>
+
+        <div class="prose prose--intro reveal">
+          <p>Our Causal World Model predicts future physical evolution through task-relevant causal variables. Given the current observation and a candidate action, the model first estimates how key intermediate states may change, and then uses these predicted changes to characterize the resulting future world. This creates a structured prediction process of current state &rarr; causal variable transition &rarr; future pixel observation.</p>
+
+          <p>Such a representation makes future prediction more useful for robotic decision making. The agent can ask not only what will happen visually, but also whether the action is likely to produce the intended state transition.</p>
+        </div>
+
+        <div class="wm-gallery" id="worldmodel-cases" aria-labelledby="wm-gallery-title">
+          <div class="wm-gallery__head">
+            <div><p class="wm-gallery__eyebrow">Generated futures</p><h4 id="wm-gallery-title">Everyday interactions, imagined.</h4></div>
+            <p>Six model-generated video samples across human interaction and everyday manipulation.</p>
+          </div>
+          <div class="wm-gallery__grid">
+            <article class="wm-case" data-candidate-id="01">
+              <div class="wm-case__media">
+                <video class="wm-case__video" src="assets/videos/worldmodel/handover-s9500-seed0.mp4" poster="assets/videos/worldmodel/handover-s9500-seed0.jpg" muted loop playsinline controls preload="none" aria-label="Generated video: Handing a cup to a person"></video>
+              </div>
+              <div class="wm-case__body">
+                <p class="wm-case__tag">Human–robot interaction</p>
+                <h5>Handing a cup to a person</h5>
+                <p class="wm-case__caption">The robot offers a cup, and the person reaches out to take it.</p>
+                <button class="wm-case__expand link" type="button" data-wm-expand aria-label="Expand Handing a cup to a person">Watch larger <span aria-hidden="true">↗</span></button>
+              </div>
+            </article>
+            <article class="wm-case" data-candidate-id="02">
+              <div class="wm-case__media">
+                <video class="wm-case__video" src="assets/videos/worldmodel/folding-s8500-seed0.mp4" poster="assets/videos/worldmodel/folding-s8500-seed0.jpg" muted loop playsinline controls preload="none" aria-label="Generated video: Folding a shirt"></video>
+              </div>
+              <div class="wm-case__body">
+                <p class="wm-case__tag">Deformable objects</p>
+                <h5>Folding a shirt</h5>
+                <p class="wm-case__caption">A gripper lifts the hem and folds the shirt onto itself.</p>
+                <button class="wm-case__expand link" type="button" data-wm-expand aria-label="Expand Folding a shirt">Watch larger <span aria-hidden="true">↗</span></button>
+              </div>
+            </article>
+            <article class="wm-case" data-candidate-id="single_arm_0007">
+              <div class="wm-case__media">
+                <video class="wm-case__video" src="assets/videos/worldmodel/blue-bottle-drawer.mp4" poster="assets/videos/worldmodel/blue-bottle-drawer.jpg" muted loop playsinline controls preload="none" aria-label="Generated video: Placing a bottle in a drawer"></video>
+              </div>
+              <div class="wm-case__body">
+                <p class="wm-case__tag">Object placement</p>
+                <h5>Placing a bottle in a drawer</h5>
+                <p class="wm-case__caption">The gripper picks up a blue bottle and places it in an open drawer.</p>
+                <button class="wm-case__expand link" type="button" data-wm-expand aria-label="Expand Placing a bottle in a drawer">Watch larger <span aria-hidden="true">↗</span></button>
+              </div>
+            </article>
+            <article class="wm-case" data-candidate-id="r0095">
+              <div class="wm-case__media">
+                <video class="wm-case__video" src="assets/videos/worldmodel/table-setting-s8500-seed1.mp4" poster="assets/videos/worldmodel/table-setting-s8500-seed1.jpg" muted loop playsinline controls preload="none" aria-label="Generated video: Setting the table"></video>
+              </div>
+              <div class="wm-case__body">
+                <p class="wm-case__tag">Tabletop manipulation</p>
+                <h5>Setting the table</h5>
+                <p class="wm-case__caption">A plate moves from a serving tray onto the placemat.</p>
+                <button class="wm-case__expand link" type="button" data-wm-expand aria-label="Expand Setting the table">Watch larger <span aria-hidden="true">↗</span></button>
+              </div>
+            </article>
+            <article class="wm-case" data-candidate-id="B06">
+              <div class="wm-case__media">
+                <video class="wm-case__video" src="assets/videos/worldmodel/red-ball-s8500-seed0.mp4" poster="assets/videos/worldmodel/red-ball-s8500-seed0.jpg" muted loop playsinline controls preload="none" aria-label="Generated video: Moving a ball to a lower shelf"></video>
+              </div>
+              <div class="wm-case__body">
+                <p class="wm-case__tag">Spatial manipulation</p>
+                <h5>Moving a ball to a lower shelf</h5>
+                <p class="wm-case__caption">The right hand lifts a red ball from the top shelf and places it on the bottom shelf.</p>
+                <button class="wm-case__expand link" type="button" data-wm-expand aria-label="Expand Moving a ball to a lower shelf">Watch larger <span aria-hidden="true">↗</span></button>
+              </div>
+            </article>
+            <article class="wm-case" data-candidate-id="B08">
+              <div class="wm-case__media">
+                <video class="wm-case__video" src="assets/videos/worldmodel/bimanual-transfer-s8500-seed0.mp4" poster="assets/videos/worldmodel/bimanual-transfer-s8500-seed0.jpg" muted loop playsinline controls preload="none" aria-label="Generated video: Passing an object between hands"></video>
+              </div>
+              <div class="wm-case__body">
+                <p class="wm-case__tag">Bimanual coordination</p>
+                <h5>Passing an object between hands</h5>
+                <p class="wm-case__caption">The left hand passes a pink object to the right hand, which places it in a blue container.</p>
+                <button class="wm-case__expand link" type="button" data-wm-expand aria-label="Expand Passing an object between hands">Watch larger <span aria-hidden="true">↗</span></button>
+              </div>
+            </article>
+          </div>
+          <p class="wm-gallery__note">Model-generated videos · Each clip plays at its original speed. Use the player controls to pause or replay.</p>
+        </div>
+      </div>
+
+      <!-- 3.2 -->
+      <div class="sub">
+        <div class="sub__head reveal"><span class="sub__n">3.2</span><h3 class="sub__title">Causal World Action Model as Robot Policy</h3></div>
+
+        <div class="prose prose--intro reveal">
+          <p>We extend the Causal World Model with an additional action module, turning it from a pure future predictor into a policy model that can directly generate robot actions. The world model backbone continues to model how the physical world is expected to evolve, while the action module maps the shared representation to executable robot controls. This design allows the policy to inherit the structured future understanding learned by the world model, rather than predicting actions solely from the current observation. In this way, the model can reason over both the expected future causal state and the action-side variables before producing the final control output, allowing world modeling signals to inform robot policy learning.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 EXPERIMENTS ============ -->
+  <section class="sec" id="experiments">
+    <div class="container">
+      <div class="sec__head reveal">
+        <p class="label"><b>04</b> Experiments</p>
+        <h2 class="sec__title sec__title--wide sec__title--long">CRIS-0 in the Real World</h2>
+      </div>
+
+      <div class="prose prose--intro reveal">
+        <p>We evaluate CRIS-0 on real robots under disturbances, over long horizons, with underspecified user requests, on complex manipulation, and on new objects. Across these settings, CRIS-0 completes tasks reliably by selecting and coordinating the capabilities each situation requires.</p>
+      </div>
+
+      <div class="exp reveal">
+        <div class="tabs" id="exp-tabs" role="tablist" aria-label="Experiments"></div>
+        <div id="exp-panels"></div>
+        <noscript><p class="lead">Enable JavaScript to view the experiment videos.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div>
+        <img class="footer__logo" src="assets/img/aetherai-wordmark.svg" alt="Aether AI" width="320" height="30">
+        <p class="footer__tag">Building robots that understand and assist people in the real world.</p>
+      </div>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h5>Page</h5>
+          <a href="#overview">Overview</a>
+          <a href="#method">Causality-guided Robot Agent</a>
+          <a href="#worldmodel">Causal World Model</a>
+          <a href="#experiments">Experiments</a>
+        </div>
+      </div>
+    </div>
+    <section class="footer__authors" id="authors" aria-labelledby="authors-title">
+      <h2 id="authors-title">Authors</h2>
+      <!-- Core contributors on the first line. The second line folds its middle
+           names away until "Show all" is pressed; Kun Zhou and Biwei Huang stay
+           visible either way. Without JavaScript the full list simply shows. -->
+      <p class="authors">Lingjun Mao<sup>1,2,*,&dagger;,&Dagger;</sup>, Lukun He<sup>1,2,*,&Dagger;</sup>, Jinglin Cao<sup>1,2,*,&Dagger;</sup>, Wenpeng Xu<sup>1,2,*,&Dagger;</sup></p>
+      <p class="authors authors--rest" id="authors-rest"><span class="authors__more" id="authors-more">Yuchen Yan<sup>1,2,&Dagger;</sup>, Yifei Shao<sup>1</sup>, Junbo Huang<sup>1</sup>, Fang Nan<sup>1,2,&Dagger;</sup>, Ruobing Han<sup>1,2,&Dagger;</sup>, Ziqiao Xi<sup>1</sup>, Ziming Xu<sup>1</sup>, Shuang Liang<sup>1,2,&Dagger;</sup>, Hengyu Jin<sup>1,&Dagger;</sup>, Sibo Zhu<sup>1,2,&Dagger;</sup>, Wenyi Wu<sup>1,2,&Dagger;</sup>, Jinzhou Tang<sup>1,2,&Dagger;</sup>, Zijun Zhang<sup>1</sup>, Songyao Jin<sup>1,2,&Dagger;</sup>, Xinyue Wang<sup>1,2,&Dagger;</sup>, </span><span class="authors__gap" aria-hidden="true">&hellip;, </span>Kun Zhou<sup>1,&dagger;,&#9993;&#xFE0E;</sup>, Biwei Huang<sup>1</sup>
+        <button class="authors__toggle" type="button" aria-expanded="false" aria-controls="authors-more" data-authors-toggle hidden>Show all 21 authors</button></p>
+      <p class="affil"><span><sup>1</sup>Aether AI</span><span><sup>2</sup>University of California San Diego</span></p>
+      <p class="affil authors__notes"><span><sup>*</sup>Core contributors</span><span><sup>&dagger;</sup>Co-Project Leaders</span><span><sup>&#9993;&#xFE0E;</sup>Corresponding Author</span><span><sup>&Dagger;</sup>Work done during an internship at Aether AI</span></p>
+      <p class="affil authors__contact"><span>Correspondence: <a class="authors__mail" href="mailto:franciskunzhou@gmail.com">franciskunzhou@gmail.com</a></span></p>
+    </section>
+    <div class="footer__bottom">
+      <span>© 2026 Aether AI</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Video player">
+  <div class="lightbox__inner">
+    <div class="lightbox__head">
+      <span class="lightbox__title"></span>
+      <button class="lightbox__close" type="button" data-close aria-label="Close video">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="lightbox__stage media-slot"></div>
+  </div>
+</dialog>
+
+<script defer src="assets/js/config.js?v=31"></script>
+<script defer src="assets/js/main.js?v=10"></script>
+</body>
+</html>

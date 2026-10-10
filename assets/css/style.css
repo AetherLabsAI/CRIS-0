@@ -1,0 +1,1214 @@
+/* ==========================================================================
+   CRA-0 project page · Aether AI
+   ========================================================================== */
+
+:root {
+  --ink: #0b0b0d;
+  --ink-2: #131317;
+  --ink-3: #1b1b21;
+  --ivory: #efece4;
+  --ivory-2: rgba(239, 236, 228, .72);
+  --ivory-3: rgba(239, 236, 228, .5);
+  --line-d: rgba(239, 236, 228, .12);
+
+  --paper: #f5f3ee;
+  --paper-2: #eeebe4;
+  --card: #fffefb;
+  --text: #141417;
+  --text-2: #4b4a51;
+  --text-3: #7e7d84;
+  --line: rgba(20, 20, 23, .11);
+
+  --violet: #a386ff;
+  --indigo: #5d6cff;
+  --grad: linear-gradient(90deg, #a98cff 0%, #6673ff 100%);
+  --ok: #6fd19a;
+  --bad: #ff7d6e;
+  --warn: #f1b965;
+
+  --c-policy: #a98cff;
+  --c-rule: #6f8dff;
+  --c-slam: #58c4bd;
+  --c-world: #e2b86b;
+  --c-verify: #6fd19a;
+
+  --max: 1240px;
+  --max-wide: 1560px;   /* full-bleed-ish bands that hang off the cover */
+  --gutter: clamp(16px, 4vw, 40px);
+  --r: 14px;
+  --r-lg: 22px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Noto Sans SC", sans-serif;
+  --font-display: "Inter Tight", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html.is-locked { overflow: hidden; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, video, svg { max-width: 100%; }
+video { display: block; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+::selection { background: rgba(163, 134, 255, .35); }
+
+.container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 42px; padding: 0 18px; border-radius: 999px;
+  font-size: .9rem; font-weight: 500; text-decoration: none; white-space: nowrap;
+  transition: background-color .2s, border-color .2s, color .2s, transform .2s var(--ease);
+}
+.btn svg { width: 16px; height: 16px; flex: none; }
+.btn--sm { height: 34px; padding: 0 14px; font-size: .84rem; }
+.btn--light { background: var(--ivory); color: var(--ink); }
+.btn--light:hover { background: #fff; }
+.btn--ghost { border: 1px solid rgba(239, 236, 228, .26); color: var(--ivory); }
+.btn--ghost:hover { background: rgba(239, 236, 228, .08); border-color: rgba(239, 236, 228, .5); }
+.btn--outline { border: 1px solid var(--line); color: var(--text); background: var(--card); }
+.btn--outline:hover { background: var(--text); color: var(--paper); border-color: var(--text); }
+.btn--dark { background: var(--text); color: var(--paper); }
+.btn--dark:hover { background: #2a2a31; }
+/* Inline links read as links by colour alone — no rule under the text. The
+   brand indigo only reaches 3.75:1 on paper, so this is a darkened step that
+   clears 4.5:1; with no underline the colour is the only affordance. */
+.link { color: #4553e6; text-decoration: none; transition: color .2s; }
+.link:hover { color: #2f3dbf; }
+
+/* ---------- Labels & section heads ---------- */
+.label {
+  display: inline-flex; align-items: center; gap: .6em; margin: 0;
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-3);
+}
+.label::before { content: "["; }
+.label::after { content: "]"; }
+.label b { font-weight: 500; color: var(--text); }
+
+.sec { position: relative; padding-block: clamp(84px, 11vw, 150px); }
+.sec--alt { background: var(--paper-2); }
+/* two tinted sections in a row would otherwise read as one */
+.sec--alt + .sec--alt { border-top: 1px solid var(--line); }
+.sec--dark {
+  background: var(--ink); color: var(--ivory);
+  --text: var(--ivory); --text-2: var(--ivory-2); --text-3: var(--ivory-3); --line: var(--line-d);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 32px clamp(32px, 6vw, 96px);
+  align-items: end;
+}
+.split--even { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+/* both columns run to the same bottom edge */
+.split--stretch { align-items: stretch; }
+
+.sec__title {
+  margin: 20px 0 0; max-width: 15ch;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(2.3rem, 5.2vw, 4rem); line-height: 1.02; letter-spacing: -.035em;
+  text-wrap: balance;
+}
+.sec__title em { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -.015em; }
+/* For a full-sentence headline that spans the container rather than a column. */
+.sec__title--wide { max-width: 28ch; }
+/* An 88-character headline: at the standard size it needs three lines and the
+   last one is a stub. Smaller type over a wider measure lands it on two. */
+.sec__title--long { max-width: none; font-size: clamp(2rem, 3.8vw, 3.35rem); line-height: 1.05; }
+.lead { margin: 0; max-width: 60ch; font-size: clamp(1.05rem, 1.35vw, 1.2rem); line-height: 1.55; color: var(--text-2); }
+.body { margin: 0 0 8px; color: var(--text-2); max-width: 62ch; }
+/* inline code in running text — a tool call, not a code block */
+.prose code, .body code {
+  padding: 2px 6px; border-radius: 6px; font-family: var(--font-mono); font-size: .84em;
+  color: var(--text); background: rgba(20, 20, 23, .045); box-shadow: inset 0 0 0 1px var(--line);
+  overflow-wrap: anywhere;
+}
+
+.sub { margin-top: clamp(80px, 10vw, 136px); }
+/* the first 2.x block follows the section's lead-in paragraph, not a block of
+   content, so it does not need the full inter-block gap */
+.prose--intro + .sub { margin-top: clamp(40px, 4.4vw, 64px); }
+/* a figure straight under a 2.x heading belongs to it — keep them together */
+.sub__head + .figure { margin-top: clamp(4px, 1vw, 14px); }
+/* Number and title are set at the same size from one variable, so they cannot
+   drift apart. Hierarchy comes from the typeface, weight and colour instead:
+   mono at regular weight in a muted grey against the display face at 600. */
+.sub__head { --sub-size: clamp(1.35rem, 2.05vw, 1.75rem); display: flex; align-items: baseline; gap: 14px; margin-bottom: 26px; }
+.sub__n { font-family: var(--font-mono); font-size: var(--sub-size); font-weight: 400; color: var(--text-2); }
+.sub__title { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: var(--sub-size); letter-spacing: -.022em; line-height: 1.15; }
+/* Third level inside a 2.x block: the named parts its copy is organised into.
+   Small enough that it never competes with the 2.x heading above it. */
+/* A dot and a size step above the step/adv headings below it — at the same
+   1.18rem those read as siblings of this heading rather than its content. */
+.sub3 {
+  display: flex; align-items: baseline; gap: 11px;
+  margin: clamp(48px, 5vw, 72px) 0 24px; font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.15rem, 1.55vw, 1.4rem); letter-spacing: -.016em; line-height: 1.25;
+}
+.sub3::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--violet); transform: translateY(-3px); }
+.sub__head + .sub3 { margin-top: 0; }
+.sub3 + .body, .sub3 + .split, .sub3 + .example { margin-top: 0; }
+/* the steps open with a rule that belongs to them, not to the heading; this
+   collapses with the heading's 24px, so it has to be the larger of the two */
+.sub3 + .steps { margin-top: 42px; }
+
+/* ---------- Reveal ---------- */
+.js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+/* ==========================================================================
+   Nav
+   ========================================================================== */
+.nav {
+  position: fixed; inset: 0 0 auto; z-index: 50; color: var(--ivory);
+  border-bottom: 1px solid transparent;
+  transition: background-color .35s, border-color .35s, backdrop-filter .35s;
+}
+.nav.is-scrolled { background: rgba(11, 11, 13, .74); border-color: var(--line-d); -webkit-backdrop-filter: saturate(140%) blur(14px); backdrop-filter: saturate(140%) blur(14px); }
+.nav__inner { display: flex; align-items: center; gap: 28px; height: 64px; }
+.nav__brand { display: flex; align-items: center; gap: 14px; text-decoration: none; flex: none; }
+.logo { height: 15px; width: auto; display: block; }
+.nav__sep { width: 1px; height: 18px; background: var(--line-d); }
+.nav__product { font-family: var(--font-mono); font-size: .8rem; letter-spacing: .08em; color: var(--ivory-2); }
+.nav__links { display: flex; gap: 30px; margin-left: auto; }
+.nav__links a { position: relative; text-decoration: none; font-size: .9rem; color: var(--ivory-3); transition: color .2s; }
+.nav__links a:hover, .nav__links a.is-active { color: var(--ivory); }
+.nav__links a.is-active::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 4px; height: 4px; border-radius: 50%; background: var(--violet); transform: translateX(-50%); }
+.nav__actions { display: flex; gap: 8px; }
+.nav__actions .btn { transition: opacity .35s var(--ease), transform .35s var(--ease), visibility .35s, background-color .2s; }
+/* Hidden while the cover's own play button is on screen */
+.js .nav:not(.show-cta) .nav__actions .btn { opacity: 0; transform: translateY(-6px); visibility: hidden; }
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  background: var(--ink); color: var(--ivory);
+}
+.hero__media { position: absolute; inset: 0; z-index: -1; }
+.hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.4s var(--ease); }
+.hero.has-video .hero__bg, .hero.has-poster .hero__bg { opacity: 1; }
+
+.hero__fallback {
+  position: absolute; inset: 0; transition: opacity 1.4s var(--ease);
+  background:
+    radial-gradient(55% 55% at 72% 38%, rgba(128, 104, 255, .32), transparent 62%),
+    radial-gradient(45% 50% at 12% 88%, rgba(78, 116, 255, .22), transparent 60%),
+    var(--ink);
+}
+.hero__fallback::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(239, 236, 228, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(239, 236, 228, .055) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 65% 42%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 60% at 65% 42%, #000 20%, transparent 78%);
+}
+.hero.has-video .hero__fallback, .hero.has-poster .hero__fallback { opacity: 0; }
+
+.orbits { position: absolute; top: 42%; left: 68%; width: min(78vw, 820px); aspect-ratio: 1; transform: translate(-50%, -50%); }
+.orbits i { position: absolute; inset: 0; border-radius: 50%; border: 1px dashed rgba(239, 236, 228, .14); animation: spin 60s linear infinite; }
+.orbits i::before { content: ""; position: absolute; top: 50%; left: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--ivory); box-shadow: 0 0 18px 2px rgba(163, 134, 255, .9); }
+.orbits i:nth-child(2) { inset: 17%; border-style: solid; border-color: rgba(239, 236, 228, .08); animation-duration: 38s; animation-direction: reverse; }
+.orbits i:nth-child(2)::before { background: var(--c-rule); top: 12%; left: 22%; }
+.orbits i:nth-child(3) { inset: 34%; border-color: rgba(163, 134, 255, .35); animation-duration: 22s; }
+.orbits i:nth-child(3)::before { background: var(--c-verify); top: auto; bottom: 8%; left: 72%; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.hero__shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(11, 11, 13, .6) 0%, rgba(11, 11, 13, 0) 20%, rgba(11, 11, 13, 0) 42%, rgba(11, 11, 13, .88) 100%);
+}
+/* Extra legibility for the title when real footage is behind it */
+.hero.has-video .hero__shade, .hero.has-poster .hero__shade {
+  background:
+    linear-gradient(180deg, rgba(11, 11, 13, .6) 0%, rgba(11, 11, 13, 0) 20%, rgba(11, 11, 13, 0) 42%, rgba(11, 11, 13, .9) 100%),
+    linear-gradient(90deg, rgba(11, 11, 13, .6) 0%, rgba(11, 11, 13, 0) 60%);
+}
+.hero__hit { position: absolute; inset: 0; z-index: 0; cursor: pointer; }
+.hero__hit:focus-visible { outline-offset: -6px; }
+
+
+.hero__content { position: relative; z-index: 1; pointer-events: none; padding-top: 120px; padding-bottom: clamp(36px, 7vh, 72px); }
+.hero__content a, .hero__content button { pointer-events: auto; }
+.label--hero { color: var(--ivory-3); }
+.label--hero b { color: var(--ivory-3); }
+.hero__title {
+  margin: 18px 0 26px -.04em;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(4.8rem, 16vw, 13rem); line-height: .84; letter-spacing: -.06em;
+}
+.hero__dash { color: var(--ivory-3); }
+.hero__title .grad-text { padding-right: .08em; margin-right: -.08em; }
+.hero__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px 48px; }
+/* 44ch is about the narrowest measure that still holds the sentence to three
+   lines, so the first two run full and nothing trails off to the right */
+.hero__subtitle { margin: 0; max-width: 44ch; font-size: clamp(1.02rem, 1.65vw, 1.3rem); line-height: 1.38; letter-spacing: -.012em; color: var(--ivory-2); }
+.hero__subtitle strong { color: var(--ivory); font-weight: 500; }
+.hero__cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+
+.play-pill {
+  display: inline-flex; align-items: center; gap: 14px; padding: 7px 24px 7px 7px; border-radius: 999px;
+  background: rgba(239, 236, 228, .1); border: 1px solid rgba(239, 236, 228, .22);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  text-align: left; transition: background-color .25s, border-color .25s;
+}
+.play-pill:hover { background: rgba(239, 236, 228, .18); border-color: rgba(239, 236, 228, .4); }
+.play-pill__icon { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--ivory); color: var(--ink); }
+.play-pill__icon svg { width: 18px; height: 18px; margin-left: 2px; }
+.play-pill__icon::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--ivory); animation: pulse 2.4s var(--ease) infinite; }
+.play-pill__text strong { display: block; font-size: .95rem; font-weight: 600; line-height: 1.2; }
+.play-pill__text small { display: block; margin-top: 2px; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ivory-3); }
+@keyframes pulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.6); opacity: 0; } }
+
+/* ==========================================================================
+   Capability strip — the three technical ideas, carried straight out of the
+   hero. Stays on the ink background so it reads as part of the cover and does
+   not collide visually with the light challenge cards further down.
+   ========================================================================== */
+.capstrip {
+  background: var(--ink); color: var(--ivory);
+  --text: var(--ivory); --text-2: var(--ivory-2); --text-3: var(--ivory-3); --line: var(--line-d);
+  padding-block: clamp(40px, 5vw, 72px);
+}
+/* The cover photo above is full-bleed, so this strip uses a wider measure than
+   the 1240px reading column below — otherwise three cards read as a narrow
+   island hanging under an edge-to-edge image. */
+.capstrip .container { max-width: var(--max-wide); }
+.capstrip .cards3 { margin-top: 0; gap: clamp(18px, 2.2vw, 34px); }
+.capstrip .ccard { background: rgba(239, 236, 228, .035); }
+.capstrip .ccard:hover {
+  background: rgba(239, 236, 228, .06);
+  border-color: rgba(239, 236, 228, .22);
+  box-shadow: none;
+}
+/* No kicker line on these cards, and the glyph sits inline to the left of the
+   heading rather than pinned to the top right. The base indigo goes muddy on
+   ink, so use the lighter purple the dark surfaces already use (cf. .flow--rev). */
+.capstrip .ccard { gap: 12px; padding: 24px; }
+.capstrip .ccard__head { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.capstrip .ccard__glyph { position: static; flex: none; width: 22px; height: 22px; color: #a386ff; }
+.capstrip .ccard h3 { margin: 0; min-width: 0; }
+
+/* ==========================================================================
+   Overview
+   ========================================================================== */
+.sec__head { margin-bottom: clamp(36px, 4vw, 56px); }
+/* Epigraph: the one-line statement of what the system is, set apart from the
+   prose that follows. Serif italic with a rule down the left edge; the measure
+   stays near 60 characters so it reads as a pull quote, not a wide banner. */
+.epigraph {
+  margin: 0 0 clamp(34px, 3.6vw, 52px); padding-left: clamp(18px, 1.8vw, 26px);
+  border-left: 2px solid var(--violet);
+  font-family: var(--font-serif); font-style: italic;
+  /* spans the full measure like the headline above and the columns below, set
+     large enough to fill it — capped narrow it left the right side empty */
+  font-size: clamp(1.18rem, 1.9vw, 1.62rem); line-height: 1.45; color: var(--text);
+  text-wrap: pretty;
+}
+
+/* Article-length intro set across two columns, so it uses the full measure
+   instead of leaving the right half empty. Each column lands near 65 characters,
+   which is a comfortable measure on its own. orphans/widows stop a single
+   stranded line from breaking across the column boundary. */
+/* Column balance is sensitive to these. `orphans` is the binding constraint: at
+   3 (or even 2) the balancer refuses to break mid-paragraph and falls back to a
+   paragraph boundary, leaving one column a couple of lines longer. orphans: 1
+   frees it to break where the columns come out level; widows: 2 still prevents
+   a single line stranded at the top of the second column, the uglier case. */
+.prose { columns: 2; column-gap: clamp(36px, 4.5vw, 80px); orphans: 1; widows: 2; }
+.prose p { margin: 0 0 1.35em; font-size: 1.05rem; line-height: 1.78; color: var(--text-2); }
+.prose p:last-of-type { margin-bottom: 0; }
+/* A short lead-in spans the full measure instead of being split: two columns
+   of two lines each reads as broken rather than as a pair of columns. */
+.prose--intro { columns: 1; }
+/* Prose sitting between a subsection's step cards and its worked example. */
+.sub .prose { margin-top: clamp(40px, 4.5vw, 64px); }
+.sub .sub3 + .prose { margin-top: 0; }
+/* lead-in paragraph sits closer to the block it introduces than to what follows */
+.sub .prose--intro + .split { margin-top: clamp(26px, 2.6vw, 36px); }
+/* but when it opens the subsection, the heading's own margin is the spacing */
+.sub__head + .prose { margin-top: 0; }
+.prose strong { color: var(--text); font-weight: 600; }
+/* the CTAs sit below both columns, with room to breathe */
+#overview .links { margin-top: clamp(52px, 5.5vw, 80px); }
+
+.authors { margin: 0; font-size: 1.05rem; font-weight: 500; }
+.authors sup, .affil sup { font-size: .62em; color: var(--indigo); margin-left: 1px; }
+.affil { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 6px 0 0; font-size: .88rem; color: var(--text-3); }
+.links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+
+.cards3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: clamp(56px, 7vw, 96px); }
+.ccard {
+  position: relative; display: flex; flex-direction: column; gap: 10px; padding: 28px;
+  border-radius: var(--r-lg); background: var(--card); border: 1px solid var(--line);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.ccard:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -36px rgba(40, 30, 90, .35); }
+.ccard__glyph { position: absolute; top: 24px; right: 24px; width: 34px; height: 34px; color: var(--indigo); }
+.ccard h3 { margin: 6px 0 0; font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; letter-spacing: -.015em; }
+.ccard p { margin: 0; color: var(--text-2); font-size: .95rem; }
+
+/* ==========================================================================
+   System figure
+   ========================================================================== */
+.figure {
+  position: relative; overflow: hidden; margin: clamp(48px, 7vw, 80px) 0 0;
+  padding: clamp(20px, 4vw, 48px);
+  border-radius: var(--r-lg); background: var(--ink); color: var(--ivory);
+}
+.figure::before { content: ""; position: absolute; left: 50%; top: 45%; width: 520px; height: 520px; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(128, 104, 255, .22), transparent); pointer-events: none; }
+/* .8rem is what holds this three-sentence caption to two lines at the figure's
+   full width; at .88rem it ran to three */
+.figure__cap { position: relative; margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--line-d); font-size: .8rem; line-height: 1.5; color: var(--ivory-3); }
+.figure__cap span { font-family: var(--font-mono); font-size: .72rem; color: var(--ivory-2); margin-right: 10px; }
+
+/* Two shared rows: column titles, then content. Every column adopts them as a
+   subgrid, so the three titles sit on one line and the three blocks share a top
+   and bottom edge; the arrows centre on the content row, so both line up. */
+.arch { position: relative; display: grid; /* the tools column is sized so the longest name, "Rule-based functions",
+   just clears one line in a half-width card — wider than that only adds slack */
+  /* the Task state track keeps its min-content floor: the four steps are
+     nowrap, so below it the box used to overflow into the arrow gap and sit
+     under the "call / result" label */
+  grid-template-columns: minmax(0, .85fr) 64px minmax(min-content, 1fr) 64px minmax(0, 1.5fr); grid-template-rows: auto 1fr; row-gap: 12px; }
+.arch__col { display: grid; grid-row: 1 / span 2; grid-template-rows: subgrid; min-width: 0; }
+.arch__label { align-self: end; font-family: var(--font-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ivory-3); }
+.io { display: grid; grid-auto-rows: 1fr; gap: 10px; }
+.io__item { display: flex; flex-direction: column; justify-content: center; padding: 13px 15px; border-radius: 12px; border: 1px solid var(--line-d); background: rgba(239, 236, 228, .025); }
+.io__k { display: block; margin-bottom: 3px; font-family: var(--font-mono); font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ivory-3); }
+.io__v { font-size: .9rem; line-height: 1.4; }
+
+.flow-pair { grid-row: 2; align-self: center; position: relative; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 0 10px; }
+/* hung below the arrows so it does not push them off the shared centre line */
+.flow-pair small { position: absolute; top: 100%; left: 0; right: 0; margin-top: 8px; font-family: var(--font-mono); font-size: .6rem; line-height: 1.35; letter-spacing: .04em; color: var(--ivory-3); text-align: center; }
+.flow { position: relative; display: block; height: 2px; }
+.flow::before {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, rgba(239, 236, 228, .5) 0 5px, transparent 5px 10px);
+  animation: flow-x .9s linear infinite;
+}
+.flow::after { content: ""; position: absolute; right: -1px; top: 50%; width: 7px; height: 7px; border-top: 1.5px solid var(--ivory-2); border-right: 1.5px solid var(--ivory-2); transform: translateY(-50%) rotate(45deg); }
+.flow--rev::before { animation-direction: reverse; background: repeating-linear-gradient(90deg, rgba(163, 134, 255, .7) 0 5px, transparent 5px 10px); }
+.flow--rev::after { right: auto; left: -1px; border-color: var(--violet); transform: translateY(-50%) rotate(-135deg); }
+@keyframes flow-x { to { background-position: 10px 0; } }
+
+/* fills the content row so its edges match the columns beside it; content centred */
+.core {
+  position: relative; display: flex; flex-direction: column; justify-content: center; padding: 28px 22px 22px; border-radius: 20px; text-align: center;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--ink-2), var(--ink-2)) padding-box,
+    linear-gradient(145deg, rgba(169, 140, 255, .95), rgba(102, 115, 255, .25) 55%, rgba(239, 236, 228, .08)) border-box;
+  box-shadow: 0 0 90px -24px rgba(128, 104, 255, .55);
+}
+.core__title { margin: 0 0 4px; font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; letter-spacing: -.025em; }
+.core__sub { margin: 0 auto 18px; max-width: 26ch; font-size: .82rem; line-height: 1.45; color: var(--ivory-3); }
+.loop { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; counter-reset: loop; }
+/* Number on its own line, label beneath: every step is exactly two lines by
+   construction. Inline, "Select tool" fit on one line while the others wrapped. */
+.loop li {
+  counter-increment: loop; display: flex; flex-direction: column; gap: 3px;
+  padding: 9px 11px; border-radius: 10px; border: 1px solid var(--line-d); background: rgba(239, 236, 228, .04);
+  font-size: .8rem; text-align: left; line-height: 1.3; white-space: nowrap;
+}
+.loop li::before { content: counter(loop, decimal-leading-zero); font-family: var(--font-mono); font-size: .62rem; line-height: 1.2; color: var(--violet); }
+
+.tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+/* Each card spans two of the grid's row tracks and adopts them as a subgrid, so
+   the name row and the description row line up across a pair of cards even when
+   one name wraps ("Rule-based functions") and its neighbour does not. */
+.tool { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 6px; align-content: start;
+  padding: 13px 15px; border-radius: 12px; border: 1px solid var(--line-d); background: rgba(239, 236, 228, .025); transition: border-color .25s, background-color .25s; }
+.tool:hover { border-color: color-mix(in srgb, var(--c) 55%, transparent); background: color-mix(in srgb, var(--c) 8%, transparent); }
+.tool--wide { grid-column: 1 / -1; }
+/* The world model and the policy are one idea: the policy is the world model
+   plus an action-prediction head. They share a row with the relation drawn
+   between them, and still adopt the grid's rows so all four cards in the
+   figure keep their names and descriptions on the same lines. */
+.toolpair {
+  grid-column: 1 / -1; grid-row: span 2; display: grid; grid-template-rows: subgrid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); column-gap: 12px; align-items: stretch;
+  padding: 13px 15px; border-radius: 12px; border: 1px solid var(--line-d); background: rgba(239, 236, 228, .025);
+}
+/* inside the group the two halves are plain — the group is the card */
+.toolpair > .tool { padding: 0; border: 0; background: none; }
+.toolpair > .tool:hover { background: none; border-color: transparent; }
+/* grid items default to min-width:auto, so the cards refused to shrink below
+   their text and the row overflowed the figure */
+/* placed explicitly: auto-placement put the connector in column 1 and squeezed
+   the second card to 32px */
+.toolpair > .tool { grid-row: 1 / span 2; min-width: 0; }
+.toolpair > .tool:first-of-type { grid-column: 1; }
+.toolpair > .tool:last-of-type { grid-column: 3; }
+/* nudged off-centre: optically it reads as belonging to the gap, not to the
+   right-hand card, which is where dead-centre put it */
+.toolpair__link {
+  grid-column: 2; grid-row: 1 / span 2; align-self: center; justify-self: center; transform: translateX(-6px);
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  color: var(--ivory-3); text-align: center;
+}
+.toolpair__op { white-space: nowrap; font-family: var(--font-mono); font-size: .58rem; line-height: 1.3; letter-spacing: .02em; color: var(--ivory-2); }
+.toolpair__link svg { width: 34px; height: 12px; flex: none; }
+/* The icon sits above the name, not beside it: beside it the name only had
+   ~150px and "Rule-based functions" wrapped to two lines while "SLAM
+   navigation" stayed on one. Stacked, every name fits a single line. */
+.tool__name { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; font-size: .92rem; font-weight: 500; line-height: 1.25; }
+.tool__label { padding-top: 0; }
+/* What each tool is, at a glance — tinted with the tool's own colour. */
+.tool__icon {
+  flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px;
+  color: var(--c); background: color-mix(in srgb, var(--c) 15%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 28%, transparent);
+}
+.tool__icon svg { width: 17px; height: 17px; }
+.tool__desc { display: block; font-size: .78rem; line-height: 1.45; color: var(--ivory-3); }
+/* Between the figure's full width and the stacked breakpoint the tools column
+   loses ~45px; trimming the card padding and name size keeps every tool name on
+   one line instead of wrapping just two of them. */
+@media (max-width: 1250px) and (min-width: 1081px) {
+  .tool { padding: 12px 12px; }
+  .tool__name { font-size: .87rem; }
+  .tool__icon { width: 26px; height: 26px; }
+}
+/* the last stretch before the figure stacks: half-width cards are too narrow
+   for the longest names, so the tools run full width instead */
+@media (max-width: 1140px) and (min-width: 1081px) {
+  .tools { grid-template-columns: minmax(0, 1fr); }
+  .toolpair { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-row: auto; row-gap: 10px; }
+  .toolpair > .tool,
+  .toolpair > .tool:first-of-type,
+  .toolpair > .tool:last-of-type { grid-column: 1; grid-row: auto; grid-template-rows: none; }
+  .toolpair__link { grid-column: 1; grid-row: auto; flex-direction: row; gap: 8px; transform: none; }
+  .toolpair__link svg { transform: rotate(90deg); }
+}
+
+/* ---------- 2.1 steps & example ---------- */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+.step { position: relative; padding-top: 26px; border-top: 1px solid var(--line); }
+.step::before { content: ""; position: absolute; top: -4px; left: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--text); }
+.step__n { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
+.step h4 { margin: 8px 0; font-family: var(--font-display); font-size: 1.18rem; font-weight: 600; letter-spacing: -.012em; }
+.step p { margin: 0; font-size: .93rem; color: var(--text-2); }
+
+/* Skill clusters: one shared skill label per row, three tasks underneath it, so
+   the pooling is visible — the label is constant, only the instruction changes. */
+.skills { display: grid; gap: 16px; margin-top: clamp(30px, 3.5vw, 44px); }
+.skill { padding: clamp(18px, 2vw, 24px); border-radius: var(--r-lg); background: var(--card); border: 1px solid var(--line); }
+.skill__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; margin-bottom: 16px; }
+.skill__tag { font-family: var(--font-mono); font-size: .76rem; color: var(--text-3); }
+.skill__tag code { margin-left: 4px; padding: 3px 9px; border-radius: 6px; background: rgba(130, 105, 240, .13); color: var(--text); font-size: .95em; }
+.skill__note { font-size: .84rem; color: var(--text-3); }
+.skill__clips { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.skill__slot {
+  aspect-ratio: 16 / 9; display: grid; place-items: center;
+  border-radius: 10px; background: var(--paper-2); border: 1px dashed var(--line); color: var(--text-3);
+}
+.skill__slot svg { width: 26px; height: 26px; }
+/* the real clip drops straight into the slot's place */
+.skill__video { aspect-ratio: 16 / 9; width: 100%; display: block; object-fit: cover; border-radius: 10px; background: var(--paper-2); }
+.skill__inst { margin: 10px 0 0; font-size: .93rem; line-height: 1.45; color: var(--text-2); }
+
+.example { margin-top: 48px; padding: clamp(20px, 3vw, 32px); border-radius: var(--r-lg); background: var(--card); border: 1px solid var(--line); }
+.example__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 22px; }
+.example__head h4 { margin: 0; font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; letter-spacing: -.01em; }
+
+/* Five stage cards plus a narrow "omitted stages" column between 04 and 07. */
+.track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto minmax(0, 1fr); gap: 12px; }
+.track li { position: relative; display: flex; flex-direction: column; align-items: flex-start; padding: 16px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); }
+.track li.is-contact { background: linear-gradient(180deg, rgba(130, 105, 240, .11), rgba(130, 105, 240, .03)); border-color: rgba(130, 105, 240, .3); }
+.track li:not(:last-child)::after { content: ""; position: absolute; z-index: 1; right: -9px; top: 50%; width: 6px; height: 6px; border-top: 1.5px solid var(--text-3); border-right: 1.5px solid var(--text-3); transform: translateY(-50%) rotate(45deg); }
+.track__n { font-family: var(--font-mono); font-size: .68rem; color: var(--text-3); }
+.track__name { margin: 4px 0 10px; font-size: .98rem; font-weight: 600; line-height: 1.3; }
+/* Silent looping clip of the stage it sits under. aspect-ratio reserves the box
+   before the file loads, so the card does not jump. */
+.track__clip {
+  align-self: stretch; width: 100%; aspect-ratio: 16 / 9; margin: 0 0 12px;
+  display: block; object-fit: cover; border-radius: 9px;
+  background: var(--paper-2); border: 1px solid var(--line);
+}
+/* The gap standing in for the stages this walkthrough skips. Needs to outweigh
+   `.track li`, which paints the card background and border. */
+.track li.track__more {
+  padding: 0; background: none; border: 0;
+  align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: .95rem; letter-spacing: .08em; color: var(--text-3);
+}
+.kind { padding: 3px 8px; border-radius: 6px; background: rgba(20, 20, 23, .06); font-family: var(--font-mono); font-size: .62rem; letter-spacing: .05em; text-transform: uppercase; color: var(--text-2); }
+.is-contact .kind { background: rgba(130, 105, 240, .15); color: #5a44c7; }
+.track__verify { display: flex; gap: 6px; align-items: flex-start; margin: auto 0 0; padding-top: 12px; width: 100%; font-size: .8rem; line-height: 1.4; color: var(--text-2); }
+.track__verify { border-top: 1px dashed var(--line); margin-top: 14px; }
+.track__verify svg { flex: none; width: 14px; height: 14px; margin-top: 1px; color: #2f9d65; }
+
+/* Backward edges live in the .track grid itself — a separate grid with the
+   same template drifted, because the `auto` column has no content here. */
+.track > li.edge {
+  grid-row: 2; margin-top: 12px; padding: 0; border: 0; background: none;
+  display: flex; flex-direction: column; align-items: stretch; gap: 8px;
+}
+.track > li.edge::after, .track > li.edge::before { display: none; }
+.edge--loop { grid-column: 1; }
+.edge--back { grid-column: 2 / 4; }
+/* a U with the arrowhead on its left end: leaves the card on the right, comes
+   back up into the card on the left */
+.edge__u { position: relative; height: 26px; border: 1.5px dashed var(--c); border-top: 0; border-radius: 0 0 13px 13px; }
+.edge--loop .edge__u { margin: 0 24%; }
+.edge--back .edge__u { margin: 0 25%; }
+.edge__u::before {
+  content: ""; position: absolute; left: -5px; top: -2px;
+  border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 7px solid var(--c);
+}
+.edge__lbl { text-align: center; white-space: nowrap; font-family: var(--font-mono); font-size: .63rem; line-height: 1.4; letter-spacing: .02em; color: var(--c); }
+.edgenote { display: none; list-style: none; margin: 16px 0 0; padding: 0; gap: 6px; font-size: .82rem; color: var(--text-2); }
+.edgenote b { font-family: var(--font-mono); font-weight: 400; color: var(--text); }
+
+/* ---------- 2.2 advantages & trace ---------- */
+.adv { list-style: none; margin: 28px 0 0; padding: 0; }
+/* as a column of a stretched split: the rows share the height with the trace
+   panel beside them so both columns end on the same line */
+.split--stretch > .adv { margin: 0; display: grid; grid-auto-rows: 1fr; align-content: stretch; min-width: 0; }
+.split--stretch > .adv li { align-content: center; }
+.split--stretch > .trace-col > .trace { flex: 1 1 auto; display: flex; flex-direction: column; }
+.split--stretch > .trace-col > .trace > .trace__body { flex: 1 1 auto; }
+.adv li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line); }
+/* no trailing padding on the last row: it pushed the column box ~18px below
+   the last line of text, so the panel opposite looked like it hung lower */
+.adv li:last-child { padding-bottom: 0; }
+.adv__n { padding-top: 3px; font-family: var(--font-mono); font-size: .75rem; color: var(--text-3); }
+.adv h4 { margin: 0 0 4px; font-size: 1.02rem; font-weight: 600; }
+.adv p { margin: 0; font-size: .93rem; color: var(--text-2); }
+
+/* The trace and the recovery clip stack as one column opposite the prose.
+   .split--even sets align-items:start, so this stretches itself to the row
+   height and lets the clip absorb whatever is left over — the two sides then
+   stay exactly level no matter how the prose beside them reflows. */
+.trace-col { align-self: stretch; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+/* ---------- 2.1 unified state ---------- */
+/* The variables a stage is reduced to, beside the payload the tools receive.
+   Each key is tinted with its card's colour, so the list and the JSON read as
+   one object seen twice. */
+.vars { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-auto-rows: 1fr; min-width: 0; }
+.vars li {
+  /* stacked: the chip labels the card, the sentence runs the full width under
+     it. Side by side, each card's text started at a different x. */
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 11px;
+  padding: 16px 18px; border-radius: 12px; background: var(--card);
+  border: 1px solid var(--line); border-left: 3px solid var(--c);
+}
+.vars code {
+  padding: 6px 10px; border-radius: 8px;
+  font-family: var(--font-mono); font-size: .72rem; line-height: 1.3; color: var(--c); white-space: nowrap;
+  background: color-mix(in srgb, var(--c) 13%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 32%, transparent);
+}
+.vars p { margin: 0; font-size: .86rem; line-height: 1.55; color: var(--text-2); }
+
+.code-col { display: flex; align-items: stretch; min-width: 0; }
+.codefig {
+  margin: 0; flex: 1 1 auto; display: flex; flex-direction: column; min-width: 0;
+  border-radius: var(--r-lg); overflow: hidden; background: var(--ink); color: var(--ivory);
+  box-shadow: 0 40px 90px -50px rgba(20, 16, 60, .6);
+}
+.codefig pre { margin: 0; padding: 18px 20px 4px; overflow-x: auto; font-family: var(--font-mono); font-size: .78rem; line-height: 1.8; color: var(--ivory-3); }
+.codefig .k { color: var(--ivory-2); }
+.codefig .v { color: var(--ivory); }
+.codefig .key { color: var(--c); font-weight: 500; }
+.codefig figcaption { margin-top: auto; padding: 14px 20px 18px; border-top: 1px solid var(--line-d); font-size: .74rem; line-height: 1.55; color: var(--ivory-3); }
+.trace { border-radius: var(--r-lg); overflow: hidden; background: var(--ink); color: var(--ivory); box-shadow: 0 40px 90px -50px rgba(20, 16, 60, .6); }
+
+/* Placeholder panel for a clip that has not been cut yet. Shares the trace's
+   shell and title bar so the two read as a pair rather than a gap. */
+.slot {
+  flex: 1 1 auto; margin: 0; display: flex; flex-direction: column;
+  border-radius: var(--r-lg); overflow: hidden; background: var(--ink); color: var(--ivory);
+  box-shadow: 0 40px 90px -50px rgba(20, 16, 60, .6);
+}
+/* grows into the leftover height rather than holding a fixed ratio */
+.slot__body {
+  /* 160, not more: the left column is align-items:start so it keeps its content
+     height, and this column can only stretch DOWN to meet it. A larger floor
+     made the panel overhang the last line of text opposite. */
+  flex: 1 1 auto; min-height: 160px; margin: 14px; padding: 18px;
+  display: grid; place-content: center; justify-items: center; gap: 8px; text-align: center;
+  border: 1px dashed rgba(239, 236, 228, .22); border-radius: 14px;
+}
+.slot__icon { width: 36px; height: 36px; color: var(--violet); }
+.slot__title { margin: 0; font-size: .92rem; font-weight: 500; }
+.slot__note { margin: 0; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ivory-3); }
+/* when the real clip lands it fills the same box, keeping the columns level */
+.slot__video { flex: 1 1 auto; display: block; width: 100%; min-height: 160px; object-fit: cover; }
+.trace__bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line-d); font-family: var(--font-mono); font-size: .72rem; color: var(--ivory-3); }
+.trace__dots { display: flex; gap: 6px; }
+.trace__dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(239, 236, 228, .16); }
+.trace__badge { margin-left: auto; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line-d); font-size: .6rem; letter-spacing: .06em; text-transform: uppercase; }
+.trace__body { list-style: none; margin: 0; padding: 14px 0 16px; font-family: var(--font-mono); font-size: .76rem; line-height: 1.5; }
+.trace__body li { display: grid; grid-template-columns: 84px minmax(0, 1fr) 18px; gap: 12px; align-items: baseline; padding: 6px 18px; }
+.trace__body li.is-warn { background: rgba(255, 125, 110, .07); }
+.trace__body li.is-accent { background: rgba(163, 134, 255, .08); }
+.t-tag { color: var(--ivory-3); text-transform: uppercase; font-size: .66rem; letter-spacing: .05em; }
+.is-warn .t-tag { color: var(--bad); }
+.is-accent .t-tag { color: var(--violet); }
+.t-msg { color: var(--ivory-2); overflow-wrap: anywhere; }
+.t-msg b { color: var(--ivory); font-weight: 500; }
+.t-ok { color: var(--ok); text-align: right; }
+.t-bad { color: var(--bad); text-align: right; }
+.t-dim { color: var(--ivory-3); text-align: right; }
+.js .trace li { opacity: 0; transform: translateX(-8px); transition: opacity .45s var(--ease), transform .45s var(--ease); transition-delay: calc(.35s + var(--i) * .16s); }
+.js .trace.is-in li { opacity: 1; transform: none; }
+
+/* ==========================================================================
+   Experiments
+   ========================================================================== */
+.exp { margin-top: clamp(48px, 7vw, 80px); }
+.tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); margin-bottom: clamp(28px, 4vw, 44px); }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { position: relative; flex: none; display: flex; align-items: baseline; gap: 10px; padding: 14px 20px 16px; white-space: nowrap; color: var(--text-3); font-size: .96rem; transition: color .2s; }
+.tab:first-child { padding-left: 0; }
+.tab__num { font-family: var(--font-mono); font-size: .68rem; }
+.tab::after { content: ""; position: absolute; left: 20px; right: 20px; bottom: -1px; height: 2px; background: var(--grad); transform: scaleX(0); transform-origin: left; transition: transform .4s var(--ease); }
+.tab:first-child::after { left: 0; }
+.tab:hover { color: var(--text-2); }
+.tab.is-on { color: var(--text); }
+.tab.is-on::after { transform: scaleX(1); }
+.tab:focus-visible { outline-offset: -4px; }
+
+.panel { animation: panel-in .55s var(--ease); }
+.panel:focus-visible { outline: none; }
+@keyframes panel-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.panel__head { margin-bottom: 26px; }
+.panel__title { margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2.1rem); font-weight: 600; letter-spacing: -.025em; line-height: 1.15; }
+/* 72ch is the narrowest measure that keeps every tab's summary to three
+   lines; at 66ch the robustness and context blurbs ran to four */
+.panel__summary { margin: 0; max-width: 72ch; color: var(--text-2); }
+/* The scenario switcher sits on its own row above the clips. Beside the summary
+   it held a fixed ~484px and squeezed the text to 8 narrow lines around 900px.
+   Hidden entirely when a panel only has one scenario — nothing to switch. */
+.scenarios { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.scenarios:empty { display: none; }
+.chip { padding: 8px 15px; border-radius: 999px; border: 1px solid var(--line); font-size: .85rem; color: var(--text-2); transition: background-color .2s, color .2s, border-color .2s; }
+.chip:hover { border-color: rgba(20, 20, 23, .3); color: var(--text); }
+.chip.is-on { background: var(--text); border-color: var(--text); color: var(--paper); }
+
+.compare { animation: panel-in .45s var(--ease); }
+/* A lone clip at the full 1240px measure towers over the text around it, so it
+   takes the same 72ch measure as .panel__summary above and shares its left and
+   right edges; the transport bar and caption narrow with it. */
+.compare--single { max-width: 72ch; }
+.compare__grid { display: grid; gap: clamp(12px, 1.6vw, 20px); }
+.compare__grid.cols-1 { grid-template-columns: minmax(0, 1fr); }
+.compare__grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.compare__grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.clip { margin: 0; min-width: 0; }
+.clip__head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: .9rem; color: var(--text-2); }
+.clip__dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: rgba(20, 20, 23, .28); }
+.clip--ours .clip__dot { background: var(--grad); box-shadow: 0 0 12px rgba(163, 134, 255, .9); }
+.clip--ours .clip__label { color: var(--text); font-weight: 500; }
+/* lets a label in config.js break where it says to (\n), so a pair of clips
+   can carry matching two-line headings */
+.clip__label { white-space: pre-line; }
+.clip__head { align-items: flex-start; }
+.clip__head .clip__dot { margin-top: .5em; }
+.clip__tag { margin-left: auto; padding: 3px 9px; border-radius: 999px; border: 1px solid; font-family: var(--font-mono); font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; }
+.clip__tag--ok { color: #2f9d65; border-color: rgba(47, 157, 101, .4); }
+.clip__tag--fail { color: #cf4f3f; border-color: rgba(207, 79, 63, .38); }
+.clip__tag--neutral { color: var(--text-2); border-color: var(--line); }
+
+.media-slot { position: relative; overflow: hidden; background: var(--ink-2); }
+.clip__media { aspect-ratio: 16 / 9; max-width: 100%; border-radius: var(--r); border: 1px solid var(--line); box-shadow: 0 18px 40px -28px rgba(20, 16, 60, .45); }
+.clip--ours .clip__media { border-color: transparent; box-shadow: 0 0 0 1px rgba(169, 140, 255, .6), 0 24px 70px -34px rgba(120, 100, 255, .7); }
+.clip__media video, .clip__media iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
+.clip__media video { cursor: pointer; }
+.clip__expand {
+  position: absolute; top: 10px; right: 10px; z-index: 2; width: 34px; height: 34px; border-radius: 10px;
+  display: grid; place-items: center; color: var(--ivory);
+  background: rgba(11, 11, 13, .55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  opacity: 0; transition: opacity .2s, background-color .2s;
+}
+.clip__expand svg { width: 16px; height: 16px; }
+.clip__expand:hover { background: rgba(11, 11, 13, .8); }
+.clip__media:hover .clip__expand, .clip__expand:focus-visible { opacity: 1; }
+@media (hover: none) { .clip__expand { opacity: 1; } }
+.clip__note { margin: 10px 0 0; font-size: .84rem; color: var(--text-2); }
+
+.slot-missing {
+  position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  padding: 16px; text-align: center; color: var(--ivory-3);
+  background:
+    repeating-linear-gradient(135deg, rgba(239, 236, 228, .03) 0 12px, transparent 12px 24px),
+    radial-gradient(80% 80% at 50% 40%, rgba(128, 104, 255, .08), transparent 70%),
+    var(--ink-2);
+}
+.slot-missing svg { width: 30px; height: 30px; opacity: .7; }
+.slot-missing__title { font-size: .85rem; color: var(--ivory-2); }
+.slot-missing__path { max-width: 100%; padding: 3px 8px; border-radius: 6px; background: rgba(239, 236, 228, .06); font-family: var(--font-mono); font-size: .66rem; overflow-wrap: anywhere; }
+.media-slot.is-missing .slot-missing { display: flex; }
+.media-slot.is-missing video { visibility: hidden; }
+.media-slot.is-missing .clip__expand { display: none; }
+
+.stages { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.stage-chip { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border-radius: 999px; border: 1px solid var(--line); font-size: .8rem; color: var(--text-3); transition: color .2s, border-color .2s; }
+.stage-chip:hover { color: var(--text); }
+.stage-chip__i { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: rgba(20, 20, 23, .06); font-family: var(--font-mono); font-size: .62rem; }
+.stage-chip.is-done { color: var(--text-2); }
+.stage-chip.is-on { color: var(--text); border-color: rgba(130, 105, 240, .55); }
+.stage-chip.is-on .stage-chip__i { background: var(--grad); color: #fff; }
+
+.compare__bar { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 6px 8px 6px 6px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); }
+.compare__bar.is-empty { opacity: .4; pointer-events: none; }
+.ctrl { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: var(--text-2); transition: background-color .2s, color .2s; }
+.ctrl svg { width: 18px; height: 18px; }
+.ctrl:hover { background: rgba(20, 20, 23, .06); color: var(--text); }
+.ctrl--play { background: var(--text); color: var(--paper); }
+.ctrl--play:hover { background: #2a2a31; color: var(--paper); }
+.scrub-wrap { flex: 1; min-width: 60px; display: flex; align-items: center; }
+.ctrl-time { font-family: var(--font-mono); font-size: .72rem; color: var(--text-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.speed { flex: none; display: flex; padding: 3px; border-radius: 999px; background: rgba(20, 20, 23, .05); }
+.speed button { padding: 5px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: .7rem; color: var(--text-3); transition: background-color .2s, color .2s; }
+.speed button:hover { color: var(--text); }
+.speed button.is-on { background: var(--paper); color: var(--text); box-shadow: 0 1px 2px rgba(20, 20, 23, .1); }
+.compare__caption { margin: 14px 4px 0; font-size: .86rem; color: var(--text-2); }
+
+.scrub { --p: 0%; -webkit-appearance: none; appearance: none; width: 100%; height: 20px; margin: 0; background: transparent; cursor: pointer; }
+.scrub::-webkit-slider-runnable-track { height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--text) var(--p), rgba(20, 20, 23, .16) var(--p)); }
+.scrub::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -4.5px; border-radius: 50%; background: var(--text); box-shadow: 0 0 0 4px rgba(20, 20, 23, .1); }
+.scrub::-moz-range-track { height: 3px; border-radius: 3px; background: rgba(20, 20, 23, .16); }
+.scrub::-moz-range-progress { height: 3px; border-radius: 3px; background: var(--text); }
+.scrub::-moz-range-thumb { width: 12px; height: 12px; border: 0; border-radius: 50%; background: var(--text); }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer { background: var(--ink); color: var(--ivory); padding-block: 80px 32px; border-top: 1px solid var(--line-d); }
+.footer__top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+.footer__logo { display: block; height: clamp(22px, 3vw, 30px); width: auto; }
+.footer__tag { margin: 18px 0 0; max-width: 34ch; color: var(--ivory-3); }
+.footer__cols { display: flex; flex-wrap: wrap; gap: 64px; }
+.footer__col h5 { margin: 0 0 14px; font-family: var(--font-mono); font-size: .68rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--ivory-3); }
+.footer__col a { display: block; padding: 3px 0; font-size: .92rem; color: var(--ivory-2); text-decoration: none; }
+.footer__col a:hover { color: var(--ivory); }
+.footer__authors { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line-d); }
+.footer__authors h2 { margin: 0 0 14px; font-family: var(--font-mono); font-size: .68rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; color: var(--ivory-3); }
+.footer__authors .authors { font-size: .95rem; color: var(--ivory-2); }
+.footer__authors .affil { color: var(--ivory-3); }
+.footer__authors sup { color: var(--violet); }
+.footer__authors .authors--rest { margin-top: 6px; font-weight: 400; }
+.footer__authors .affil { margin-top: 12px; }
+/* The middle of the author list is folded only once the script has taken
+   over (.is-folded), so the full list is what shows without JavaScript. */
+.authors__gap { display: none; }
+.authors--rest.is-folded .authors__more { display: none; }
+.authors--rest.is-folded .authors__gap { display: inline; }
+.authors__toggle { margin-left: 10px; padding: 0; font: inherit; font-size: .84rem; color: var(--violet); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; cursor: pointer; }
+.authors__toggle:hover { color: var(--ivory); }
+.footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line-d); font-family: var(--font-mono); font-size: .7rem; letter-spacing: .04em; color: var(--ivory-3); }
+.footer__bottom a { color: inherit; text-decoration: none; }
+.footer__bottom a:hover { color: var(--ivory); }
+
+/* ==========================================================================
+   Lightbox
+   ========================================================================== */
+.lightbox {
+  width: 100%; height: 100%; max-width: 100vw; max-height: 100vh; max-height: 100dvh; margin: 0; padding: 0 var(--gutter);
+  border: 0; background: transparent; color: var(--ivory);
+}
+.lightbox[open] { display: grid; place-items: center; animation: lb-in .35s var(--ease); }
+.lightbox::backdrop { background: rgba(6, 6, 8, .92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+@keyframes lb-in { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+.lightbox__inner { width: min(100%, 1400px, calc((100dvh - 120px) * 16 / 9)); }
+.lightbox__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.lightbox__title { font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ivory-2); }
+.lightbox__close { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(239, 236, 228, .25); transition: background-color .2s; }
+.lightbox__close:hover { background: rgba(239, 236, 228, .1); }
+.lightbox__close svg { width: 18px; height: 18px; }
+.lightbox__stage { aspect-ratio: 16 / 9; max-width: 100%; border-radius: var(--r); background: #000; }
+.lightbox__stage video, .lightbox__stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .arch { grid-template-columns: minmax(0, 1fr); }
+  .arch { grid-template-rows: none; row-gap: 0; }
+  .arch__col { display: block; grid-row: auto; }
+  .arch__label { margin-bottom: 12px; }
+  .flow-pair { grid-row: auto; }
+  .flow-pair small { position: static; margin: 0; }
+  .flow-pair { flex-direction: row; justify-content: center; align-items: center; gap: 14px; height: 56px; padding: 0; }
+  .flow { width: 2px; height: 100%; }
+  .flow::before { background: repeating-linear-gradient(180deg, rgba(239, 236, 228, .5) 0 5px, transparent 5px 10px); animation-name: flow-y; }
+  .flow--rev::before { background: repeating-linear-gradient(180deg, rgba(163, 134, 255, .7) 0 5px, transparent 5px 10px); }
+  .flow::after { right: auto; left: 50%; top: auto; bottom: -1px; transform: translateX(-50%) rotate(135deg); }
+  .flow--rev::after { top: -1px; bottom: auto; transform: translateX(-50%) rotate(-45deg); }
+  @keyframes flow-y { to { background-position: 0 10px; } }
+  .track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* the arcs are positioned against the six-column track; once it reflows
+     they would point at the wrong cards */
+  .track > li.edge { display: none; }
+  .edgenote { display: grid; }
+  /* stacked: the relation reads top-to-bottom. Every explicit placement from the
+     desktop rules has to be cleared, or the children keep hunting for column 3. */
+  .toolpair { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-row: auto; row-gap: 10px; }
+  .toolpair > .tool,
+  .toolpair > .tool:first-of-type,
+  .toolpair > .tool:last-of-type { grid-column: 1; grid-row: auto; grid-template-rows: none; }
+  .toolpair__link { grid-column: 1; grid-row: auto; flex-direction: row; gap: 8px; transform: none; }
+  .toolpair__op { max-width: none; }
+  .toolpair__link svg { transform: rotate(90deg); }
+  .track li::after { display: none; }
+  .sec__title--wide { max-width: 24ch; }
+  /* the long headline keeps the full measure so it does not stack up */
+  .sec__title--long { max-width: none; }
+  /* narrower cards here — trim the card so every capability title stays on one line */
+  .ccard { padding: 24px; }
+  /* the wide strip has no room to spare in this range: tighten gap and padding
+     so all three bodies keep the same line count (checked 940-1080px) */
+  .capstrip .cards3 { gap: 14px; }
+  .capstrip .ccard { padding: 22px; }
+  .ccard h3 { font-size: 1.15rem; }
+  .ccard__glyph { top: 20px; right: 20px; width: 30px; height: 30px; }
+}
+
+@media (max-width: 900px) {
+  .nav__links { display: none; }
+  .nav__actions { margin-left: auto; }
+  .split, .split--even { grid-template-columns: minmax(0, 1fr); }
+  .sec__title--wide { max-width: 20ch; }
+  .sec__title--long { max-width: none; }
+  /* two columns would be far too narrow here — read it straight down instead */
+  .prose { columns: 1; max-width: 62ch; }
+  /* a spanning lead-in keeps spanning: capping it here left it misaligned with
+     the full-width cards directly beneath */
+  .prose--intro { max-width: none; }
+  .cards3 { grid-template-columns: minmax(0, 1fr); }
+  .ccard { padding: 22px 24px; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .compare__grid.cols-3 { grid-template-columns: minmax(0, 1fr); }
+  .trace { margin-top: 12px; }
+}
+
+@media (max-width: 720px) {
+  .compare__grid.cols-2 { grid-template-columns: minmax(0, 1fr); }
+  .track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctrl-time { display: none; }
+  .tabs { -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); }
+}
+
+@media (max-width: 520px) {
+  .nav__sep, .nav__product { display: none; }
+  .hero__row { gap: 22px; }
+  .hero__cta .btn { display: none; }
+  .steps, .track { grid-template-columns: minmax(0, 1fr); }
+  /* three clips side by side leaves each ~100px wide here */
+  .skill__clips { grid-template-columns: minmax(0, 1fr); }
+  /* stacked: the omitted-stages marker becomes a thin divider row, not a cell */
+  .track li.track__more { padding: 2px 0; }
+  .prose .links { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .prose .links .btn { justify-content: center; }
+  .trace__body li { grid-template-columns: 64px minmax(0, 1fr) 14px; gap: 8px; padding: 6px 14px; font-size: .7rem; }
+  .compare__bar { gap: 6px; }
+  .speed button { padding: 5px 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+  .js .reveal, .js .trace li { opacity: 1; transform: none; }
+}
+
+/* ---------- world model generated samples ---------- */
+.wm-gallery { margin-top: 38px; scroll-margin-top: 100px; }
+.wm-gallery__head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 24px; }
+/* A plain eyebrow and an h4 at the size of the other in-section example
+   headings: the bracketed mono .label and a display-size title are the
+   section header's look ("[03 Causal World Model]"), and repeating them here
+   made the gallery read as a new section. */
+.wm-gallery__eyebrow { margin: 0; font-size: .82rem; font-weight: 500; color: var(--text-2); }
+.wm-gallery__head h4 { margin: 4px 0 0; font-family: var(--font-display); font-size: 1.2rem; line-height: 1.25; letter-spacing: -.01em; font-weight: 600; }
+.wm-gallery__head > p { max-width: 320px; margin: 0; color: var(--text-2); font-size: 14px; }
+.wm-gallery__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.wm-case { overflow: hidden; border: 1px solid var(--line); border-radius: var(--r); background: var(--card); }
+.wm-case__media { background: var(--ink); aspect-ratio: 4 / 3; }
+.wm-case__video { width: 100%; height: 100%; object-fit: contain; }
+.wm-case__body { padding: 19px 20px 20px; }
+.wm-case__tag { margin: 0 0 7px; font-size: 10px; text-transform: uppercase; letter-spacing: .11em; color: #806128; font-weight: 650; }
+.wm-case h5 { margin: 0 0 8px; font-size: 20px; font-weight: 550; line-height: 1.25; letter-spacing: -.02em; }
+.wm-case__caption { margin: 0; color: var(--text-2); font-size: 13px; line-height: 1.6; }
+.wm-case__expand { margin-top: 14px; font-size: 13px; font-weight: 550; }
+.wm-gallery__note { margin: 16px 0 0; font-size: 12px; color: var(--text-2); }
+@media (max-width: 760px) {
+  .wm-gallery__head { display: block; }
+  .wm-gallery__head > p { margin-top: 12px; max-width: none; }
+  .wm-gallery__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+}
+@media (max-width: 520px) {
+  .wm-gallery__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* the corresponding author's address in the author legend */
+.footer__authors .authors__mail { color: var(--ivory-2); text-decoration: underline; text-underline-offset: 3px; }
+.footer__authors .authors__mail:hover { color: var(--ivory); }
+.footer__authors .authors__contact { margin-top: 6px; }
+.footer__authors .authors__notes { margin-top: 6px; }
+
+/* ---------- architecture figure: light variant ----------
+   A light card like the "Example · Clearing a tablecloth" walkthrough. Each of
+   the three columns is its own flat tinted group — inputs in yellow, the
+   agent's task state in violet, the tool interface in blue — and the blocks
+   inside are white cards. The groups are grid items spanning the same two rows,
+   so they share a top and bottom edge. No glows or gradient borders.
+   The figure's parts are written against the ivory-on-ink tokens, so those are
+   re-pointed here rather than restating every rule. */
+.figure {
+  background: var(--card); color: var(--text); border: 1px solid var(--line);
+  --ivory: var(--text); --ivory-2: var(--text); --ivory-3: var(--text-2); --line-d: rgba(20, 20, 23, .08);
+  --ink-2: #ffffff;
+  /* the tool accents, deepened so the icons hold up on white */
+  --c-policy: #7a5cf0; --c-rule: #4f6ef0; --c-slam: #1f9d94; --c-world: #b07d22; --c-verify: #2f9d65;
+}
+.figure::before { display: none; }
+/* the groups bring their own padding, so the figure's is trimmed and the arrow
+   gaps narrowed to give the cards back the width they had */
+.figure { padding: clamp(16px, 2vw, 24px); }
+.figure .arch__col { padding: 12px; border-radius: 18px; background: var(--g); }
+/* Colour is left to the content: the camera views, the four illustrations and
+   the five tool icons already carry plenty, so the groups stay one quiet warm
+   tone, a step darker than the page so they read as containers. Tinting each
+   group its own hue competed with that content, and a cool grey fought the
+   warm page. The centre is marked by lift instead of hue (see .core). */
+.figure .arch__col { --g: var(--paper-2); --g-ink: var(--text-2); }
+.figure .arch__label { color: var(--g-ink); font-weight: 500; }
+.figure .io__item, .figure .tool, .figure .toolpair, .figure .core { background: #ffffff; }
+.figure .toolpair > .tool { background: none; }
+.figure .core { border: 1px solid var(--line-d); box-shadow: 0 14px 28px -18px rgba(70, 52, 24, .45); }
+.figure .io__v, .figure .tool__label { font-weight: 500; }
+.figure .io__k { color: var(--text-3); }
+.figure .loop li { background: var(--paper); border-color: transparent; }
+.figure .loop li::before { color: var(--text-3); }
+.figure .flow::before { background: repeating-linear-gradient(90deg, rgba(20, 20, 23, .5) 0 5px, transparent 5px 10px); }
+.figure .flow--rev::before { background: repeating-linear-gradient(90deg, rgba(20, 20, 23, .3) 0 5px, transparent 5px 10px); }
+.figure .flow--rev::after { border-color: rgba(20, 20, 23, .45); }
+
+/* content added inside the figure's cards: three camera-view slots under
+   Observations, a two-line sample under Tool feedback, and a clip slot in each
+   of the four steps. The slots are dashed placeholders until media is cut. */
+/* min-width: 0 all the way down: the nowrap code sample otherwise set the
+   column's minimum width and pushed the white cards out to the group's
+   right edge, eating its padding */
+.figure .io { grid-auto-rows: auto; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.figure .arch__col { grid-template-columns: minmax(0, 1fr); }
+.figure .io__item, .figure .io__item > * { min-width: 0; }
+.io__views { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 10px; }
+.io__cam { position: relative; display: block; min-width: 0; }
+.io__view { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 8px; background: #e9e4d2; }
+.io__cam em { position: absolute; left: 4px; bottom: 4px; padding: 1px 5px; border-radius: 4px; background: rgba(11, 11, 13, .62); font-family: var(--font-mono); font-size: .5rem; font-style: normal; letter-spacing: .06em; text-transform: uppercase; color: #fff; }
+.io__code { display: grid; gap: 2px; margin-top: 10px; padding: 9px 11px; border-radius: 8px; background: #f6f4ee; font-family: var(--font-mono); font-size: .66rem; line-height: 1.55; color: var(--text-2); white-space: nowrap; overflow: hidden; }
+.io__code b { font-weight: 500; }
+.io__code .is-bad { color: #c2564a; }
+.loop__slot { display: grid; place-items: center; margin-top: 8px; aspect-ratio: 16 / 9; border-radius: 7px; border: 1px dashed rgba(91, 67, 196, .4); background: #ffffff; font-family: var(--font-mono); font-size: .56rem; letter-spacing: .06em; text-transform: uppercase; color: rgba(91, 67, 196, .8); }
+/* a step's slot once it holds real media: no dashed frame, image fills the box */
+img.loop__slot, video.loop__slot { display: block; width: 100%; height: auto; object-fit: cover; border: 1px solid var(--line); }
+
+/* ---------- architecture figure: layout ----------
+   The original three columns, left to right. The agent column is given a
+   larger share and its paddings are tightened so the four steps' illustrations
+   are as large as the row allows. Desktop only: below 1081px the figure falls
+   back to the single-column stack defined further up. */
+@media (min-width: 1081px) {
+  .figure .arch { grid-template-columns: minmax(0, .72fr) 40px minmax(min-content, 1.5fr) 40px minmax(0, 1.18fr); row-gap: 10px; }
+  .figure .flow-pair { padding: 0 5px; }
+  .figure .arch__col { padding: 10px; }
+  .figure .core { padding: 16px 10px 10px; }
+  .figure .core__title { font-size: 1.45rem; }
+  /* balanced, so the second line is not left holding a single word */
+  .figure .core__sub { margin-bottom: 12px; max-width: 30ch; text-wrap: balance; }
+  .figure .loop { gap: 8px; }
+  .figure .loop li { padding: 8px 8px 8px; }
+  .figure .loop__slot { margin-top: 6px; }
+  /* a touch smaller so the tool names still fit one line in the narrower column */
+  /* icon and name share one line: the name sits to the right of the icon
+     instead of on a row of its own beneath it */
+  .figure .tool__name { flex-direction: row; align-items: center; gap: 7px; font-size: .74rem; line-height: 1.2; white-space: nowrap; }
+  .figure .tool__icon { flex: none; width: 22px; height: 22px; border-radius: 7px; }
+  .figure .tool__icon svg { width: 13px; height: 13px; }
+  .figure .tool, .figure .toolpair { padding: 11px 12px; }
+  .figure .toolpair > .tool { padding: 0; }
+  /* the policy half gets the larger share and the descriptions a slightly
+     smaller size, which keeps both of the pair's descriptions to two lines */
+  .figure .toolpair { column-gap: 5px; grid-template-columns: minmax(min-content, .8fr) auto minmax(0, 1.2fr); }
+  .figure .tool__desc { font-size: .74rem; }
+  .figure .io__code { padding: 8px 9px; font-size: .6rem; }
+  .figure .flow-pair small { font-size: .54rem; letter-spacing: 0; }
+  /* the tool cards carry just an icon and a name; the one-line descriptions
+     are dropped from the figure (the caption and the text below cover them).
+     With nothing beneath the name, each card is a single centred row and the
+     three rows share the column's height equally. */
+  .figure .tool__desc { display: none; }
+  .figure .tools { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr; align-content: stretch; height: 100%; }
+  .figure .tool--wide { grid-column: auto; }
+  .figure .tool { display: flex; align-items: center; grid-row: auto; }
+  .figure .toolpair { grid-column: auto; grid-row: auto; grid-template-rows: none; align-items: center; grid-template-columns: auto auto minmax(0, 1fr); column-gap: 10px; }
+  .figure .toolpair > .tool { grid-row: 1; grid-template-rows: none; }
+  .figure .toolpair__link { grid-row: 1; transform: none; }
+  .figure .tool__name { font-size: .8rem; gap: 8px; }
+  .figure .tool__icon { width: 26px; height: 26px; border-radius: 8px; }
+  .figure .tool__icon svg { width: 15px; height: 15px; }
+}
+
+/* ---------- architecture figure: split right column ----------
+   The right column holds two groups: the tool interface, and under it the few
+   demonstrations its tools are extracted from, joined by an upward arrow. The
+   column wrapper itself is bare; the two .arch__group cards carry the tint. */
+.figure .arch__col--split { background: none; padding: 0; }
+.arch__group { padding: 10px; border-radius: 18px; background: var(--g); }
+.arch__group > .arch__label { margin-bottom: 10px; align-self: flex-start; }
+.arch__up { display: flex; align-items: center; justify-content: center; gap: 4px; height: 38px; }
+/* the horizontal dashed arrow, stood on end so it points up */
+.arch__up .flow { width: 26px; transform: rotate(-90deg); }
+.arch__up small { font-family: var(--font-mono); font-size: .56rem; letter-spacing: .04em; color: var(--text-2); }
+.demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.demo { display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 8px; border: 1px dashed rgba(20, 20, 23, .28); background: #ffffff; font-family: var(--font-mono); font-size: .54rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
+video.demo { border-style: solid; border-color: var(--line); }
+@media (min-width: 1081px) {
+  .figure .arch__col--split { display: flex; flex-direction: column; }
+  .figure .arch__col--split > .arch__group:first-child { flex: 1 1 auto; display: flex; flex-direction: column; }
+  .figure .arch__col--split .tools { flex: 1 1 auto; height: auto; }
+  .figure .tool, .figure .toolpair { padding: 8px 12px; }
+  .figure .toolpair > .tool { padding: 0; }
+  /* the pair has two names and an arrow to fit on one line */
+  .figure .toolpair { column-gap: 6px; }
+  .figure .toolpair .tool__name { font-size: .74rem; gap: 6px; }
+  .figure .toolpair .tool__icon { width: 23px; height: 23px; }
+  .figure .toolpair .tool__icon svg { width: 13px; height: 13px; }
+  .figure .toolpair__link svg { width: 26px; }
+}
+
+/* the tools as small cards rather than one full-width row each: the world
+   model -> policy pair on top, then the other three as compact tiles side by
+   side, icon above name */
+@media (min-width: 1081px) {
+  .figure .arch__col--split .tools { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; gap: 8px; }
+  .figure .arch__col--split .toolpair { grid-column: 1 / -1; justify-content: center; grid-template-columns: auto auto auto; padding: 12px; }
+  .figure .arch__col--split .tools > .tool { flex-direction: column; justify-content: center; padding: 12px 6px; }
+  .figure .arch__col--split .tools > .tool .tool__name { flex-direction: column; align-items: center; gap: 7px; white-space: normal; text-align: center; font-size: .74rem; line-height: 1.25; }
+  /* the tool cards keep their natural, compact height; whatever height the
+     column has left over goes to the demonstrations, whose slots grow to fill it */
+  .figure .arch__col--split > .arch__group:first-child { flex: 0 0 auto; }
+  .figure .arch__col--split .tools { flex: 0 0 auto; }
+  .figure .arch__col--split .toolpair { padding: 10px 12px; }
+  .figure .arch__col--split .tools > .tool { padding: 10px 6px; }
+  /* the three tiles: icons on one line across the row, and each name centred
+     in a two-line slot so a one-line name (Verifiers) sits level with the
+     two-line ones beside it */
+  .figure .arch__col--split .tools > .tool { justify-content: flex-start; }
+  .figure .arch__col--split .tools > .tool .tool__label { display: flex; align-items: center; justify-content: center; min-height: 2.5em; }
+  /* a little more air around the arrow between the pair */
+  .figure .arch__col--split .toolpair { column-gap: 12px; }
+  .figure .arch__col--split .toolpair .tool__name { font-size: .78rem; gap: 7px; }
+  .figure .arch__group--demos { flex: 1 1 auto; display: flex; flex-direction: column; }
+  .figure .arch__group--demos .demos { flex: 1 1 auto; }
+  .figure .arch__group--demos .demos { grid-auto-rows: 1fr; }
+  .figure .arch__group--demos .demo { aspect-ratio: auto; height: 100%; min-height: 56px; }
+}
+
+/* ---------- architecture figure: arrows ----------
+   The input arrow and the call / result pair sit level with the tool
+   interface block (the top of the right column) instead of the middle of the
+   column, and a second, leftward arrow runs from the demonstrations to the
+   agent: the task stages are extracted from them. */
+.flow-pair--demo { display: none; }
+@media (min-width: 1081px) {
+  .figure .arch > .arch__col:first-child { grid-column: 1; }
+  .figure .flow-pair--in { grid-column: 2; }
+  .figure .arch > .arch__col:nth-child(3) { grid-column: 3; }
+  .figure .flow-pair--tools, .figure .flow-pair--demo { grid-column: 4; }
+  .figure .arch > .arch__col--split { grid-column: 5; }
+  .figure .flow-pair--in, .figure .flow-pair--tools { align-self: start; margin-top: 112px; }
+  .figure .flow-pair--demo { display: flex; grid-row: 2; align-self: end; margin-bottom: 70px; }
+  .figure .flow-pair--demo .flow--rev::before { background: repeating-linear-gradient(90deg, rgba(20, 20, 23, .5) 0 5px, transparent 5px 10px); }
+  .figure .flow-pair--demo .flow--rev::after { border-color: rgba(20, 20, 23, .7); }
+}
+
+/* ---------- architecture figure: world model figure, one row of demos ----------
+   The demonstrations are a single row of clips, and the height that frees goes
+   to the tool block: the world model -> policy card grows a figure slot under
+   its two names. */
+.toolpair__fig { grid-column: 1 / -1; display: grid; place-items: center; width: 100%; min-height: 72px; object-fit: cover; border-radius: 9px; border: 1px dashed rgba(20, 20, 23, .28); background: var(--paper); font-family: var(--font-mono); font-size: .54rem; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); }
+img.toolpair__fig, video.toolpair__fig { border-style: solid; border-color: var(--line); }
+@media (min-width: 1081px) {
+  .figure .arch__col--split > .arch__group:first-child { flex: 1 1 auto; }
+  .figure .arch__col--split .tools { flex: 1 1 auto; grid-template-rows: 1fr auto; }
+  .figure .arch__col--split .toolpair { grid-template-rows: auto 1fr; row-gap: 10px; align-items: center; }
+  .figure .arch__col--split .toolpair > .tool, .figure .arch__col--split .toolpair__link { grid-row: 1; }
+  .figure .arch__col--split .toolpair__fig { grid-row: 2; height: 100%; align-self: stretch; }
+  /* a real image keeps its own wide shape rather than being stretched or cropped
+     to the slot; the card centres its two rows in whatever height is left */
+  /* width: 0 + min-width: 100% keeps the image's 1000px intrinsic width out of
+     the track sizing, so the name row above stays centred and compact */
+  .figure .arch__col--split img.toolpair__fig, .figure .arch__col--split video.toolpair__fig { width: 0; min-width: 100%; height: auto; min-height: 0; align-self: center; }
+  .figure .arch__col--split .toolpair:has(img.toolpair__fig, video.toolpair__fig) { grid-template-rows: auto auto; align-content: center; }
+  .figure .arch__group--demos { flex: 0 0 auto; }
+  .figure .arch__group--demos .demos { flex: 0 0 auto; grid-auto-rows: auto; }
+  .figure .arch__group--demos .demo { aspect-ratio: 16 / 10; height: auto; min-height: 0; }
+}
+
+/* ---------- architecture figure: no outer panel ----------
+   The light card that wrapped the whole figure is gone: the groups sit straight
+   on the page, which removes one layer of nesting. With the panel gone the
+   groups can no longer borrow the page's own tone (on the website the section
+   background is exactly --paper-2), so they are mixed a step darker than it. */
+.figure { background: none; border: 0; border-radius: 0; padding: 0; overflow: visible; }
+.figure .arch__col { --g: color-mix(in srgb, var(--paper-2) 90%, #5c4a2a); }
+.figure .loop li { background: var(--paper); }
+.figure .figure__cap { margin-top: 22px; }
+
+/* ---------- architecture figure: demonstration strips ----------
+   The demonstrations are two wide four-frame strips, one above the other; each
+   keeps its own shape (about 7:1) instead of a fixed slot ratio. */
+.demos { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+img.demo, video.demo { display: block; width: 100%; height: auto; aspect-ratio: auto; border: 1px solid var(--line); background: none; }
+@media (min-width: 1081px) {
+  .figure .arch__group--demos img.demo, .figure .arch__group--demos video.demo { aspect-ratio: auto; height: auto; }
+  .figure .flow-pair--demo { margin-bottom: 72px; }
+  .figure .flow-pair--in, .figure .flow-pair--tools { margin-top: 118px; }
+}
+
+/* an illustration that is not 16:9 is fitted whole into the same 16:9 slot as
+   its neighbours, on its own background colour, so the four steps stay level */
+img.loop__slot--fit { aspect-ratio: 16 / 9; height: auto; object-fit: contain; background: #fcf7f3; }
+
+/* the view names sit under each clip instead of on top of it, so nothing
+   covers the picture */
+.io__cam em { position: static; display: block; margin-top: 4px; padding: 0; border-radius: 0; background: none; text-align: center; font-size: .52rem; color: var(--text-3); }
+
+/* the three camera views: square corners and a solid dark frame; the gap
+   between them is tightened so each picture is a little larger */
+.io__view { border-radius: 0; border: 2px solid #141417; box-sizing: border-box; }
+.io__views { gap: 4px; }
+.figure .io__item { padding-inline: 11px; }
+/* the views are still images now; height: auto lets the 16:10 ratio apply
+   instead of the img's height attribute */
+img.io__view { height: auto; }

@@ -1,0 +1,6 @@
+# Local-only: dev tooling, internal notes, and superseded assets
+tools/
+README.md
+assets/img/demo.png
+assets/videos/main_demo_preview.mp4
+assets/videos/main_demo_preview.jpg
